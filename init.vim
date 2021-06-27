@@ -1,0 +1,2 @@
+source D:\\init.vim
+
