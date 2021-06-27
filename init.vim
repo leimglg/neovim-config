@@ -354,6 +354,8 @@ nnoremap gs :!git status<CR>
 nnoremap gl :!git log %<CR>
 nnoremap gb :!git blame %<CR>
 nnoremap gp :!git push<CR>
+nnoremap gr :!git config credential.helper store<CR>
+nnoremap gp :<C-u><C-R>=printf("!git push")<CR>
 " git config --global user.name "mlei"
 " git config --global user.email "leimglg@gmail.com"
 " git reset HEAD file_to_unstage
@@ -452,13 +454,14 @@ let g:which_key_map['g'] = {
         \ 'name' : 'Git & Comment & Go...',
         \ '?' : [':normal g?', 'Uncomment'],
         \ '/' : [':normal g/', 'Comment'],
-        \ ' ' : [':echo "!git "', 'git<Space>'],
+        \ ' ' : [':echo "git "', 'git<Space>'],
         \ 'a' : [':normal ga', 'git add %'],
-        \ 'c' : [':echo "!git commit -am "', 'git commit -am ""'],
+        \ 'c' : [':echo "git commit -am "', 'git commit -am ""'],
         \ 's' : [':normal gs', 'git status'],
         \ 'l' : [':normal gl', 'git log %'],
         \ 'b' : [':normal gb', 'git blame %'],
-        \ 'p' : [':normal gp', 'git push'],
+        \ 'p' : [':echo "git push', 'git push'],
+        \ 'r' : [':normal gr', 'git config credential.helper store'],
       \ }
 " let g:which_key_map['<++>'] = {
         " \ 'name' : '<++>',
