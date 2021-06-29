@@ -7,7 +7,6 @@ nmap <S-Insert> "*p
 vmap <S-Insert> "*p
 vmap <C-Insert> "*ygv
 imap <C-v> <C-R>*
-" imap <C-Insert> <C-R>*
 imap <RightMouse> <C-R>*
 cmap <RightMouse> <MiddleMouse>
 cmap <S-Insert> <MiddleMouse>
@@ -121,11 +120,13 @@ nnoremap <Leader>P "zP
 vnoremap <Leader>p "zp
 vnoremap <Leader>P "zP
 vnoremap <Leader>x "zdxXi
-nnoremap <Leader>/ "zyiw/<C-R>z<CR>
-vnoremap <Leader>/ "zy/<C-R>z<CR>
+nnoremap <Leader>/ "zyiw/<C-R>z
+vnoremap <Leader>/ "zy/<C-R>z
 nnoremap <LEADER>sw :set wrap<CR>
 nnoremap <LEADER>sW :set unwrap<CR>
 nnoremap <LEADER>sf :set ff=unix<CR>
+nnoremap <expr> <Leader>sM (expand("#1:p:t") ==? ".vimsession" ? ':execute ":mks!" expand("#1:p")' : ":mks .vimsession")."\|<CR>" 
+nnoremap <expr> <Leader>sO (expand("%") ==? ".vimsession" ? ':so %<CR>' : ":so ")
 nnoremap <Leader>sy o⋅×÷<Enter>αβγδϵζηθικλμνξοπρστυϕχψω<Enter>ABΓΔEZHΘIKΛMNΞOΠPΣTΥΦXΨΩ<Enter>←↑→↓↔⇒⇔⇵∎∴∵∷≅≈<Enter>∏∐∑√∛∞∠∥∫∬∭∮∯∰<Enter>±⊕⊖⊗⊘⊙⊞⊢⊣⊤⊥⎛⎜⎝⎞⎟⎠⎧⎨⎩⎫⎬⎭<Esc>
 " ╔╦╗═  ┌┬┐─
 " ╠╬╣║  ├┼┤│
@@ -143,42 +144,44 @@ onoremap > i>
 
 
 
-noremap ss :set splitright<CR>:vsplit<CR>
-noremap sv :set splitbelow<CR>:split<CR>
+nnoremap ss :set splitright<CR>:vsplit<CR>
+nnoremap sv :set splitbelow<CR>:split<CR>
 "  close the buffer at the bottom right corner
-nnoremap sX <C-w>l<C-w>j:bd!<CR>
-nnoremap sx <C-w>l<C-w>j:q!<CR>
+nnoremap sX <C-w>j<C-w>l:bd!<CR>
+nnoremap sx <C-w>j<C-w>l:q!<CR>
 " move the split screen to tab
-noremap st <C-w>T
+nnoremap st <C-w>T
 
-nnoremap <expr> sM (expand("#1:p:t") ==? ".vimsession" ? ':execute ":mks!" expand("#1:p")' : ":mks .vimsession")."\|<CR>" 
-nnoremap <expr> sO (expand("%") ==? ".vimsession" ? ':so %<CR>' : ":so ")
 
-noremap bt :set splitright<CR>:vsplit<CR><C-w>T
-noremap ba :tab sball<CR>
+nnoremap bt :set splitright<CR>:vsplit<CR><C-w>T
+nnoremap ba :tab sball<CR>
 " noremap bN :tab drop<Space>
-noremap bh :tabprev<CR>
-noremap bl :tabnext<CR>
-noremap bH :-tabmove<CR>
-noremap bL :+tabmove<CR>
+nnoremap bh :tabprev<CR>
+nnoremap bl :tabnext<CR>
+nnoremap bp <C-w>p
+nnoremap bH :-tabmove<CR>
+nnoremap bL :+tabmove<CR>
 " noremap be :tabe<Space>
-noremap bd :bd!<Space>
-noremap br :oldfiles<CR>
-noremap bu :b#<CR>
-noremap bj :bn<CR>
-noremap bk :bp<CR>
-noremap b<Space> :b<Space>
-noremap bb :ls<CR>
-noremap bX :bd!<CR>    " close the current buffer and window
-noremap bx :bp<CR>:bdelete! #<CR>   " close the current buffer and return to the previous one, without closing the window
-noremap b<up> :res +5<CR>
-noremap b<down> :res -5<CR>
-noremap b<left> :vertical resize -5<CR>
-noremap b<right> :vertical resize +5<CR>
+nnoremap bd :bd!<Space>
+nnoremap br :oldfiles<CR>
+nnoremap bu :b#<CR>
+nnoremap bj :bn<CR>
+nnoremap bk :bp<CR>
+nnoremap b<Space> :b<Space>
+nnoremap bb :ls<CR>
+nnoremap bx :bd!<CR>    " close the current buffer and window
+nnoremap bX :bp<CR>:bdelete! #<CR>   " close the current buffer and return to the previous one, without closing the window
+nnoremap b<up> :res +5<CR>
+nnoremap b<down> :res -5<CR>
+nnoremap b<left> :vertical resize -5<CR>
+nnoremap b<right> :vertical resize +5<CR>
 " open the previous buffer in left split and current buffer in right
 " noremap bs :set nosplitright<CR>:vert sbp<CR>
 " open buffer in tab (enter name or number of the buffer) 
 " noremap bi :tab sb<Space>
+" using ctrl-arrow key to scroll split without focusing
+nnoremap <C-up> <C-w>p5<C-e><C-w>p
+nnoremap <C-down> <C-w>p5<C-y><C-w>p
 
 nnoremap tT :term<CR>
    
@@ -202,7 +205,6 @@ endfunc
 
 
 call plug#begin(stdpath('data') . '/plugged')
-    Plug 'airblade/vim-gitgutter'
 	Plug 'JuliaEditorSupport/julia-vim'
 	Plug 'mbbill/undotree'
 	Plug 'mhinz/vim-startify'   " start screen for vim, :h startify
@@ -285,8 +287,8 @@ let g:Lf_WindowHeight = 0.30
 "    translator
 " ==================
 let g:translator_target_lang ='zh'
-nmap <silent> <Leader>tw <Plug>TranslateW
-vmap <silent> <Leader>tw <Plug>TranslateWV
+nmap <silent> <Leader>T <Plug>TranslateW
+vmap <silent> <Leader>T <Plug>TranslateWV
 let g:translator_default_engines=['google']
 
 "    startify
