@@ -24,7 +24,8 @@ set number
 set autoread
 set cursorline    
 set nowrap         
-set wildmenu  
+set splitbelow
+set wildmenu 
 set nohlsearch
 set ignorecase
 set smartcase 
@@ -51,10 +52,8 @@ filetype plugin on
 filetype plugin indent on
 set scrolloff=5
 set laststatus=2
-" set statusline=%<%n.\ %f%r%m%w\ %=%y\ %l\ %p%%
 set statusline=%<%n.\ \[\ %{expand('%:p:h:t')}\ \]\ \ %t\ %r%m%w\ %=%y\ %l\/%L\ %p%%
 set showtabline=1
-" set tabline=%{expand('%:p:h:t')}/%t
 set autochdir
 set backspace=2
 set backspace=indent,eol,start
@@ -64,17 +63,15 @@ nnoremap K 4<C-y>
 vnoremap K 4k
 nnoremap J 4<C-e>
 vnoremap J 4j
-nnoremap H b
-nnoremap L w
-vnoremap H b
-vnoremap L w
+nnoremap <Leader>J J
+noremap H b
+noremap L w
 nnoremap Y y$
 vnoremap Y "+y
 noremap gk gg
 noremap gj G
 noremap gh ^
 noremap gl $
-nnoremap D J
 
 noremap - <C-x>
 noremap = <C-a>
@@ -91,9 +88,15 @@ inoremap <C-k> <up>
 inoremap <C-j> <down>
 cnoremap <C-k> <C-t>
 cnoremap <C-j> <C-g>
+nnoremap <C-up> <C-w>p5<C-e><C-w>p
+nnoremap <C-down> <C-w>p5<C-y><C-w>p
 
-" noremap <LEADER>a za  " flod lines
 noremap zn :set foldlevel=
+
+nnoremap ;; /<++><CR>"_c4l
+inoremap ;; <C-g>u<ESC>/<++><CR>"_c4l
+nnoremap ;' /<++><CR>
+inoremap ;' <C-g>u<++>
 
 noremap <Leader>h :set hlsearch<CR>
 noremap <Leader>H :set nohlsearch<CR>
@@ -105,21 +108,14 @@ nnoremap <Leader>ev :e $MYVIMRC<CR>
 nnoremap <Leader>ec :<C-r>=printf("e %s/", stdpath('config'))<CR>
 vnoremap <Leader>n :normal<Space>
 nnoremap <Leader>r :reg<CR>
-nnoremap <Leader>c "zc
-nnoremap <Leader>C "zC
-vnoremap <Leader>c "zc
-vnoremap <Leader>C "zC
+noremap <Leader>c "zc
+noremap <Leader>C "zC
+noremap <Leader>d "zd
+noremap <Leader>D "zD
+noremap <Leader>p "zp
+noremap <Leader>P "zP
 nnoremap <Leader>x "zx
-vnoremap <Leader>x "zx
-nnoremap <Leader>d "zd
-nnoremap <Leader>D "zD
-vnoremap <Leader>d "zd
-vnoremap <Leader>D "zD
-nnoremap <Leader>p "zp
-nnoremap <Leader>P "zP
-vnoremap <Leader>p "zp
-vnoremap <Leader>P "zP
-vnoremap <Leader>x "zdxXi
+vnoremap <Leader>x "zxxXi
 nnoremap <Leader>/ "zyiw/<C-R>z
 vnoremap <Leader>/ "zy/<C-R>z
 nnoremap <LEADER>sw :set wrap<CR>
@@ -127,22 +123,11 @@ nnoremap <LEADER>sW :set unwrap<CR>
 nnoremap <LEADER>sf :set ff=unix<CR>
 nnoremap <expr> <Leader>sM (expand("#1:p:t") ==? ".vimsession" ? ':execute ":mks!" expand("#1:p")' : ":mks .vimsession")."\|<CR>" 
 nnoremap <expr> <Leader>sO (expand("%") ==? ".vimsession" ? ':so %<CR>' : ":so ")
-nnoremap <Leader>sy o⋅×÷<Enter>αβγδϵζηθικλμνξοπρστυϕχψω<Enter>ABΓΔEZHΘIKΛMNΞOΠPΣTΥΦXΨΩ<Enter>←↑→↓↔⇒⇔⇵∎∴∵∷≅≈<Enter>∏∐∑√∛∞∠∥∫∬∭∮∯∰<Enter>±⊕⊖⊗⊘⊙⊞⊢⊣⊤⊥⎛⎜⎝⎞⎟⎠⎧⎨⎩⎫⎬⎭<Esc>
-" ╔╦╗═  ┌┬┐─
-" ╠╬╣║  ├┼┤│
-" ╚╩╝   └┴┘
-
-
-onoremap ( i(
-onoremap ) i)
-onoremap [ i[
-onoremap ] i]
-onoremap { i{
-onoremap } i}
-onoremap < i<
-onoremap > i>
-
-
+nnoremap <Leader>sy A
+    \<Enter>⎛╔╦╗═  ┌┬┐─ ⎞ αβγδϵζηθικλμνξοπρστυϕχψω
+    \<Enter>⎜╠╬╣║  ├┼┤│ ⎟ ABΓΔEZHΘIKΛMNΞOΠPΣTΥΦXΨΩ
+    \<Enter>⎜╚╩╝   └┴┘  ⎟ ←↑→↓↔⇒⇔⇵∎∴∵∷≅≈
+    \<Enter>⎝⋅×÷√       ⎠ ∏∐∑√∛∞∠∥∫∬∭∮∯∰ ±⊕⊖⊗⊘⊙⊞⊢⊣⊤⊥
 
 nnoremap ss :set splitright<CR>:vsplit<CR>
 nnoremap sv :set splitbelow<CR>:split<CR>
@@ -151,7 +136,6 @@ nnoremap sX <C-w>j<C-w>l:bd!<CR>
 nnoremap sx <C-w>j<C-w>l:q!<CR>
 " move the split screen to tab
 nnoremap st <C-w>T
-
 
 nnoremap bt :set splitright<CR>:vsplit<CR><C-w>T
 nnoremap ba :tab sball<CR>
@@ -180,16 +164,9 @@ nnoremap b<right> :vertical resize +5<CR>
 " open buffer in tab (enter name or number of the buffer) 
 " noremap bi :tab sb<Space>
 " using ctrl-arrow key to scroll split without focusing
-nnoremap <C-up> <C-w>p5<C-e><C-w>p
-nnoremap <C-down> <C-w>p5<C-y><C-w>p
 
 nnoremap tT :term<CR>
    
-nnoremap ;; /<++><CR>"_c4l
-inoremap ;; <C-g>u<ESC>/<++><CR>"_c4l
-nnoremap ;' /<++><CR>
-inoremap ;' <C-g>u<++>
-
 
 nnoremap <silent><F5> :call CompileRun()<CR>
 func! CompileRun()
@@ -228,7 +205,7 @@ call plug#end()
 highlight GitGutterDelete guifg=#ffffff ctermfg=15
 
 "            undo tree
-nnoremap <C-z> :UndotreeToggle<CR>
+nnoremap tu :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -244,15 +221,12 @@ endfunc
 
 "      color scheme
 set t_Co=256
-" set t_ut=
-" set background=dark    " Setting dark mode
 colorscheme codedark
 hi statusline ctermfg=015 ctermbg=016 guifg=#ffffff guibg=#000000
 hi TabLine ctermfg=black ctermbg=white guifg=black guibg=white
 " hi TabLineSel ctermfg=black ctermbg=Yellow guifg=black guibg=Yellow
 " hi Search guibg=#444444 ctermbg=238
 " hi normal guifg=gray94 ctermfg=254
-
 " hi link juliaFunctionCall Identifier
 
 " === Leaderf
@@ -306,7 +280,7 @@ let g:startify_enable_special = 0
 
 " === vim-illuminate
 " ===
-let g:Illuminate_delay = 500
+let g:Illuminate_delay = 400
 hi link illuminatedWord Search
 
 "   git gutter
@@ -314,7 +288,7 @@ highlight GitGutterDelete guifg=#ffffff ctermfg=15
 
 "  AsyncRun
 "  :AsyncRun
-let g:asyncrun_open=10
+let g:asyncrun_open=15
 
 
 " nvim-compe
@@ -384,4 +358,4 @@ autocmd Filetype python exec 'source ' stdpath('config').'/python.vim'
 autocmd Filetype fortran exec 'source ' stdpath('config').'/fortran.vim'
 
 
-au FileType * set fo-=c fo-=r fo-=o fo-=t
+au FileType * set fo-=c fo-=r fo-=o
