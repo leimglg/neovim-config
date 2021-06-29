@@ -24,6 +24,7 @@ let g:which_key_map[' '] = {
         \       'o' : [':echo "SLoad <C-d>"', 'startify load session'],
         \       'm' : [':echo "SSave <C-d>"', 'startify make session'],
         \       'x' : [':normal s sx', 'Startify close session'],
+        \       'y' : [':normal s sy', 'Print symbol'],
         \       'd' : ['echo "SDelete <C-d>"', 'startify load session'],
         \   },
         \ 'f' : {
@@ -42,7 +43,7 @@ let g:which_key_map[' '] = {
         \   },
       \ }
 let g:which_key_map['b'] =  {
-        \ 'name' : 'buffer...',
+        \ 'name' : 'Buffer...',
         \ 'h' : [':normal bh', 'Move to left tab'],
         \ 'l' : [':normal bl', 'Move to right tab'],
         \ 't' : [':normal bt', 'New tab'],
@@ -54,7 +55,7 @@ let g:which_key_map['b'] =  {
         \ 'k' : [':normal bk', 'Previous buffer'],
         \ ' ' : [':echo "b<Space>"', 'open existing buffer by name or #'],
         \ 'b' : [':normal bb', 'List existing buffer'],
-        \ 'r' : [':normal br', 'Show recent used files'],
+        \ 'r' : [':normal br', 'Recent buffers'],
         \ 'u' : [':normal bu', 'Open recent buffer in right split'],
         \ 'x' : [':normal bx', 'Close the buffer, keep the window'],
         \ 'X' : [':normal bX', 'Close the buffer and window'],
@@ -84,15 +85,14 @@ let g:which_key_map['t'] = {
       \ }
 let g:which_key_map['g'] = {
         \ 'name' : 'Git & Comment & Go...',
-        \ '?' : [':normal g?', 'Uncomment'],
-        \ '/' : [':normal g/', 'Comment'],
+        \ '//' : [':normal g//', 'Comment'],
         \ ' ' : [':echo "git "', 'git<Space>'],
         \ 'a' : [':normal ga', 'git add %'],
-        \ 'c' : [':echo "git commit -am " "', 'git commit -am ""'],
+        \ 'c' : [':echo "git commit -am "', 'git commit -am ""'],
         \ 's' : [':normal gs', 'git status'],
         \ 'l' : [':normal gl', 'git log %'],
         \ 'b' : [':normal gb', 'git blame %'],
-        \ 'p' : [':echo "git push', 'git push'],
+        \ 'p' : [':echo "git push"', 'git push'],
         \ 'r' : [':normal gr', 'git config credential.helper store'],
       \ }
 " let g:which_key_map['<++>'] = {

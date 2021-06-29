@@ -16,6 +16,7 @@ cmap <C-v> <C-R>"
 
 inoremap jj <Esc>
 tnoremap jj <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
 cnoremap jj <Esc>
 let mapleader = " "
 set mouse=a
@@ -38,7 +39,7 @@ set softtabstop=4
 set foldmethod=indent
 set foldlevel=99
 set completeopt=longest,noinsert,menuone,noselect,preview
-set lazyredraw "same as above
+set lazyredraw 
 set showmatch
 set visualbell
 set virtualedit=block
@@ -52,16 +53,13 @@ filetype plugin indent on
 set scrolloff=5
 set laststatus=2
 " set statusline=%<%n.\ %f%r%m%w\ %=%y\ %l\ %p%%
-set statusline=%<%n.\ 【%{expand('%:p:h:t')}\ 】\ %t\ %r%m%w\ %=%y\ %l\/%L\ %p%%
+set statusline=%<%n.\ \[\ %{expand('%:p:h:t')}\ \]\ \ %t\ %r%m%w\ %=%y\ %l\/%L\ %p%%
 set showtabline=1
 " set tabline=%{expand('%:p:h:t')}/%t
-set guitablabel=%{expand('%:p:h:t')}/%t
 set autochdir
 set backspace=2
 set backspace=indent,eol,start
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-
 
 nnoremap K 4<C-y>
 vnoremap K 4k
@@ -128,6 +126,11 @@ vnoremap <Leader>/ "zy/<C-R>z<CR>
 nnoremap <LEADER>sw :set wrap<CR>
 nnoremap <LEADER>sW :set unwrap<CR>
 nnoremap <LEADER>sf :set ff=unix<CR>
+nnoremap <Leader>sy o⋅×÷<Enter>αβγδϵζηθικλμνξοπρστυϕχψω<Enter>ABΓΔEZHΘIKΛMNΞOΠPΣTΥΦXΨΩ<Enter>←↑→↓↔⇒⇔⇵∎∴∵∷≅≈<Enter>∏∐∑√∛∞∠∥∫∬∭∮∯∰<Enter>±⊕⊖⊗⊘⊙⊞⊢⊣⊤⊥⎛⎜⎝⎞⎟⎠⎧⎨⎩⎫⎬⎭<Esc>
+" ╔╦╗═  ┌┬┐─
+" ╠╬╣║  ├┼┤│
+" ╚╩╝   └┴┘
+
 
 onoremap ( i(
 onoremap ) i)
@@ -241,9 +244,9 @@ endfunc
 set t_Co=256
 " set t_ut=
 " set background=dark    " Setting dark mode
-colorscheme codeDark
+colorscheme codedark
 hi statusline ctermfg=015 ctermbg=016 guifg=#ffffff guibg=#000000
-hi TabLine ctermfg=black ctermbg=grey guifg=black guibg=grey
+hi TabLine ctermfg=black ctermbg=white guifg=black guibg=white
 " hi TabLineSel ctermfg=black ctermbg=Yellow guifg=black guibg=Yellow
 " hi Search guibg=#444444 ctermbg=238
 " hi normal guifg=gray94 ctermfg=254
@@ -353,7 +356,7 @@ nnoremap g<Space> :!git<Space>
 nnoremap ga :!git add %<CR>
 nnoremap gc :!git commit -am ""<left>
 nnoremap gs :!git status<CR>
-nnoremap gl :!git log %<CR>
+nnoremap go :!git log %<CR>
 nnoremap gb :!git blame %<CR>
 " nnoremap gp :!git push<CR>
 nnoremap gr :!git config credential.helper store<CR>
