@@ -68,12 +68,34 @@ let g:which_key_map['b'] =  {
         \ '→' : [':vertical resize +5', 'Decrease split screen height'],
         \}
 let g:which_key_map['s'] = {
-        \ 'name' : 'Split...',
+        \ 'name' : 'Search & Split...',
         \ 's' : [':normal ss', 'Vertical split screen'],
-        \ 't' : [':normal st', 'Move split screen to tab'],
+        \ 'T' : [':normal sT', 'Move split screen to tab'],
         \ 'v' : [':normal sv', 'Split screen'],
         \ 'x' : [':normal sx', 'Close the right bottom split'],
         \ 'X' : [':normal sX', 'Close and delete the right bottom split'],
+        \ 'f' : [':normal sf', 'Find file in current path'],
+        \ 'l' : [':normal sl', 'Find line in current buffer'],
+        \ 'L' : [':normal sL', 'Find line in current path'],
+        \ 'b' : [':normal sb', 'Find opened buffer'],
+        \ 'h' : [':normal sh', 'Find help tag'],
+        \ 'r' : [':normal sr', 'Find recent opened files'],
+        \ 'c' : [':normal sc', 'Find vim command'],
+        \ ':' : [':normal s:', 'Find in command history'],
+        \ '/' : [':normal s/', 'Find in search history'],
+        \ 'm' : [':normal sm', 'Find in marks'],
+        \ 'q' : [':normal sq', 'Find in quickfix'],
+        \ 'o' : [':normal so', 'Find vim options'],
+        \ 'R' : [':normal sR', 'Find in registers'],
+        \ 't' : [':normal st', 'Find in ctags'],
+        \ 'g' : {
+        \       'name' : 'Search git...',
+        \       'c' : [':normal sgc', 'Search git commits'],
+        \       'b' : [':normal sgb', 'Search git commits in current buffer'],
+        \       'B' : [':normal sgB', 'Search git branches'],
+        \       's' : [':normal sgs', 'Search git status'],
+        \       'S' : [':normal sgS', 'Search git stash'],
+        \   },
         \ '<++>' : [':normal <++>', '<++>'],
       \ }
 let g:which_key_map['t'] = {
@@ -94,7 +116,6 @@ let g:which_key_map['g'] = {
         \ 's' : [':normal gs', 'git status'],
         \ 'o' : [':normal go', 'git log %'],
         \ 'b' : [':normal gb', 'git blame %'],
-        \ 'p' : [':echo "git push"', 'git push'],
         \ 'r' : [':normal gr', 'git config credential.helper store'],
       \ }
 " let g:which_key_map['<++>'] = {

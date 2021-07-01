@@ -6,7 +6,7 @@ imap <S-Insert> <C-R>*
 nmap <S-Insert> "*p
 vmap <S-Insert> "*p
 vmap <C-Insert> "*ygv
-imap <C-v> <C-R>*
+imap <C-v> <C-R>"
 imap <RightMouse> <C-R>*
 cmap <RightMouse> <MiddleMouse>
 cmap <S-Insert> <MiddleMouse>
@@ -32,6 +32,7 @@ set smartcase
 set incsearch
 set hidden
 set shortmess+=c
+set updatetime=100
 set tabstop=4
 set expandtab
 set shiftwidth=4
@@ -54,7 +55,7 @@ set scrolloff=5
 set laststatus=2
 set statusline=%<%n.\ \[\ %{expand('%:p:h:t')}\ \]\ \ %t\ %r%m%w\ %=%y\ %l\/%L\ %p%%
 set showtabline=1
-set autochdir
+" set autochdir
 set backspace=2
 set backspace=indent,eol,start
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -135,7 +136,7 @@ nnoremap sv :set splitbelow<CR>:split<CR>
 nnoremap sX <C-w>j<C-w>l:bd!<CR>
 nnoremap sx <C-w>j<C-w>l:q!<CR>
 " move the split screen to tab
-nnoremap st <C-w>T
+nnoremap sT <C-w>T
 
 nnoremap bt :set splitright<CR>:vsplit<CR><C-w>T
 nnoremap ba :tab sball<CR>
@@ -182,11 +183,16 @@ endfunc
 
 
 call plug#begin(stdpath('data') . '/plugged')
+    " Plug 'junegunn/fzf'
+    " Plug 'junegunn/fzf.vim'
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
 	Plug 'JuliaEditorSupport/julia-vim'
 	Plug 'mbbill/undotree'
 	Plug 'mhinz/vim-startify'   " start screen for vim, :h startify
 	" Plug 'liuchengxu/vista.vim'    " taglist, require 
-	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }    "find word in current buffer and other files, and preview them. require rg to search other files.
+	" Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }    "find word in current buffer and other files, and preview them. require rg to search other files.
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'    " 
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown','vim-plug']}    " note: wait a while after running ':PlugInstall', it's downloading binary files
@@ -200,6 +206,48 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
+
+"       telescope
+" <C-v> open in vertical split
+" <C-x> open in horizontal split
+" <C-t> open in new tab
+" <C-u> scroll up in preview window
+" <C-d> scroll down in preview window
+" <C-c> close telescope
+nnoremap sf <cmd>Telescope find_files<cr>
+nnoremap sl <cmd>Telescope current_buffer_fuzzy_find<Cr>
+nnoremap sL <cmd>Telescope live_grep<cr>
+nnoremap sb <cmd>Telescope buffers<cr>
+nnoremap sh <cmd>Telescope help_tags<cr>
+nnoremap sr <cmd>Telescope oldfiles<Cr>
+nnoremap sc <cmd>Telescope commands<Cr>
+nnoremap s/ <cmd>Telescope search_history<Cr>
+nnoremap s: <cmd>Telescope command_history<Cr>
+" nnoremap sm <cmd>Telescope man_pages<Cr>
+nnoremap sm <cmd>Telescope marks<Cr>
+nnoremap sq <cmd>Telescope quickfix<Cr>
+nnoremap sL <cmd>Telescope loclist<Cr>
+nnoremap so <cmd>Telescope vim_options<Cr>
+nnoremap sR <cmd>Telescope registers<Cr>
+" nnoremap sa <cmd>Telescope autocommands<Cr>
+nnoremap st <cmd>Telescope current_buffer_tags<Cr>
+nnoremap sgc <cmd>Telescope git_commits<Cr>
+nnoremap sgb <cmd>Telescope git_bcommits<Cr>
+nnoremap sgB <cmd>Telescope git_branches<Cr>
+nnoremap sgs <cmd>Telescope git_status<Cr>
+nnoremap sgS <cmd>Telescope git_stash<Cr>
+" nnoremap <++> <cmd>Telescope <++><Cr>
+
+"         fzf
+" command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', 'type {}']}, <bang>0)
+" nnoremap sf :Files<CR>
+" nnoremap sr :Rg<CR>
+" nnoremap sl :Lines<CR>
+" nnoremap sb :BLines<CR>
+" nnoremap sw :Windows<CR>
+" nnoremap sh :History<CR>
+" nnoremap sc :History:<CR>
+" nnoremap s/ :History/<CR>
 
 "   git gutter
 highlight GitGutterDelete guifg=#ffffff ctermfg=15
@@ -233,29 +281,30 @@ hi TabLine ctermfg=black ctermbg=white guifg=black guibg=white
 " let g:Lf_WindowPosition = 'popup'
 " nnoremap <Leader>fs :Leaderf --stayOpen line<CR>
 " nnoremap <Leader>fS :Leaderf --stayOpen rg<CR>
-nnoremap <Leader>fl :Leaderf line<CR>
-nnoremap <Leader>fL :Leaderf rg<CR>
-nnoremap <Leader>fc :<C-u><C-R>=printf("Leaderf rg --current-buffer -e %s", expand("<cword>"))<CR>
-nnoremap <Leader>fC :<C-u><C-R>=printf("Leaderf rg -e %s", expand("<cword>"))<CR>
-vnoremap <Leader>fc :<C-u><C-R>=printf("Leaderf rg --current-buffer -e %s", leaderf#Rg#visual())<CR>
-vnoremap <Leader>fC :<C-u><C-R>=printf("Leaderf rg -e %s", leaderf#Rg#visual())<CR>
-nnoremap <Leader>ft :<C-u><C-R>=printf("Leaderf rg -t ")<CR>
-nnoremap <Leader>fm :Leaderf mru<CR>
-nnoremap <Leader>fb :Leaderf buffer<CR>
-nnoremap <Leader>fj :Leaderf --next<CR>
-nnoremap <Leader>fk :Leaderf --previous<CR>
-nnoremap <Leader>fr :<C-u><C-R>=printf("Leaderf --recall ")<CR><CR>
-nnoremap <Leader>fR :<C-u><C-R>=printf("Leaderf --recall ")<CR>
-let g:Lf_ShortcutF = "<leader>ff"
-let g:Lf_ShortcutB=''
-let g:Lf_PreviewInPopup = 1
-let g:Lf_WindowPosition = 'bottom'
-let g:Lf_ShowHidden = 0
-let g:Lf_PreviewResult = {'File': 1,'Buffer': 0,'Mru': 1,'Tag': 1,'BufTag': 1,'Function': 1,'Line': 1,'Rg': 1,'Gtags': 1}
-let g:Lf_WildIgnore = {
-            \ 'dir': ['$RECYCLE.BIN', 'System Volume Information'],
-            \ 'file': ['*.exe', '*.o', '*.so', 'fort.[0-9]*', '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*']}
-let g:Lf_WindowHeight = 0.30
+
+" nnoremap <Leader>fl :Leaderf line<CR>
+" nnoremap <Leader>fL :Leaderf rg<CR>
+" nnoremap <Leader>fc :<C-u><C-R>=printf("Leaderf rg --current-buffer -e %s", expand("<cword>"))<CR>
+" nnoremap <Leader>fC :<C-u><C-R>=printf("Leaderf rg -e %s", expand("<cword>"))<CR>
+" vnoremap <Leader>fc :<C-u><C-R>=printf("Leaderf rg --current-buffer -e %s", leaderf#Rg#visual())<CR>
+" vnoremap <Leader>fC :<C-u><C-R>=printf("Leaderf rg -e %s", leaderf#Rg#visual())<CR>
+" nnoremap <Leader>ft :<C-u><C-R>=printf("Leaderf rg -t ")<CR>
+" nnoremap <Leader>fm :Leaderf mru<CR>
+" nnoremap <Leader>fb :Leaderf buffer<CR>
+" nnoremap <Leader>fj :Leaderf --next<CR>
+" nnoremap <Leader>fk :Leaderf --previous<CR>
+" nnoremap <Leader>fr :<C-u><C-R>=printf("Leaderf --recall ")<CR><CR>
+" nnoremap <Leader>fR :<C-u><C-R>=printf("Leaderf --recall ")<CR>
+" let g:Lf_ShortcutF = "<leader>ff"
+" let g:Lf_ShortcutB=''
+" let g:Lf_PreviewInPopup = 1
+" let g:Lf_WindowPosition = 'bottom'
+" let g:Lf_ShowHidden = 0
+" let g:Lf_PreviewResult = {'File': 1,'Buffer': 0,'Mru': 1,'Tag': 1,'BufTag': 1,'Function': 1,'Line': 1,'Rg': 1,'Gtags': 1}
+" let g:Lf_WildIgnore = {
+"             \ 'dir': ['$RECYCLE.BIN', 'System Volume Information'],
+"             \ 'file': ['*.exe', '*.o', '*.so', 'fort.[0-9]*', '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*']}
+" let g:Lf_WindowHeight = 0.30
 
 
 "    translator
@@ -356,6 +405,5 @@ autocmd Filetype markdown exec 'source ' stdpath('config').'/markdown.vim'
 autocmd Filetype julia exec 'source ' stdpath('config').'/julia.vim'
 autocmd Filetype python exec 'source ' stdpath('config').'/python.vim'
 autocmd Filetype fortran exec 'source ' stdpath('config').'/fortran.vim'
-
 
 au FileType * set fo-=c fo-=r fo-=o
