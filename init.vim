@@ -229,6 +229,7 @@ nnoremap br <cmd>Telescope oldfiles<Cr>
 nnoremap <Leader>r <cmd>Telescope registers<Cr>
 nnoremap se <cmd>Telescope file_browser<cr>
 nnoremap sf <cmd>Telescope find_files<cr>
+nnoremap sw <cmd>Telescope grep_string<Cr>
 nnoremap sl <cmd>Telescope current_buffer_fuzzy_find<Cr>
 nnoremap sL <cmd>Telescope live_grep<cr>
 nnoremap sH <cmd>Telescope help_tags<cr>
@@ -241,6 +242,7 @@ nnoremap sq <cmd>Telescope quickfix<Cr>
 " nnoremap sL <cmd>Telescope loclist<Cr>
 nnoremap sO <cmd>Telescope vim_options<Cr>
 " nnoremap sa <cmd>Telescope autocommands<Cr>
+nnoremap sc <cmd>Telescope spell_suggest<CR>
 nnoremap st <cmd>Telescope current_buffer_tags<Cr>
 nnoremap sgc <cmd>Telescope git_commits<Cr>
 nnoremap sgb <cmd>Telescope git_bcommits<Cr>
@@ -248,6 +250,7 @@ nnoremap sgB <cmd>Telescope git_branches<Cr>
 nnoremap sgs <cmd>Telescope git_status<Cr>
 nnoremap sgS <cmd>Telescope git_stash<Cr>
 " nnoremap <++> <cmd>Telescope <++><Cr>
+" nnoremap sr <cmd>Telescope lsp_references<Cr>
 
 "         fzf
 " command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', 'type {}']}, <bang>0)

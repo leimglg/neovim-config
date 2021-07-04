@@ -91,6 +91,7 @@ let g:which_key_map['s'] = {
         \ 'T' : [':normal sT', 'Move split screen to tab'],
         \ 'v' : [':normal sv', 'Split screen'],
         \ 'f' : [':normal sf', 'Find file in current path'],
+        \ 'w' : [':normal sw', 'Find word under cursor in cwd'],
         \ 'l' : [':normal sl', 'Find line in current buffer'],
         \ 'L' : [':normal sL', 'Find line in current path'],
         \ 'H' : [':normal sH', 'Find help tag'],
