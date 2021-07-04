@@ -223,6 +223,7 @@ call plug#end()
 " <C-t> open in new tab
 " <C-u> scroll up in preview window
 " <C-d> scroll down in preview window
+" <C-f> delete buffer
 " <C-c> close telescope
 nnoremap bb <cmd>Telescope buffers<cr>
 nnoremap br <cmd>Telescope oldfiles<Cr>
@@ -321,6 +322,23 @@ hi TabLine ctermfg=black ctermbg=white guifg=black guibg=white
 " let g:Lf_WindowHeight = 0.30
 
 
+"               Gitgutter
+nnoremap <Leader>g<Space> :!git<Space>
+nnoremap <Leader>ga :!git add %<CR>
+nnoremap <Leader>gc :!git commit -am ""<left>
+nnoremap <Leader>gs :!git status<CR>
+nnoremap <Leader>gl :!git log %<CR>
+nnoremap <Leader>gb :!git blame %<CR>
+nnoremap <Leader>gp :!git pull<CR>
+nnoremap <Leader>gr :!git config credential.helper store<CR>
+" nnoremap gp :<C-u><C-R>=printf("!git push")<CR>
+" git config --global user.name "leimglg"
+" git config --global user.email "leimglg@gmail.com"
+" git reset HEAD file_to_unstage
+" git remote add origin https://github.com/leimglg/study-notes
+" git config credential.helper store
+" git clone repository_address
+
 "    translator
 " ==================
 let g:translator_target_lang ='zh'
@@ -385,28 +403,14 @@ lua << EOF
     require'lspconfig'.pyright.setup{}
     require'lspconfig'.vimls.setup{}
     require'lspconfig'.julials.setup{}
+    require("telescope").setup { defaults = {  mappings = { 
+        i = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous",}, 
+        n = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous",} } } }
 EOF
     " require'lspconfig'.julials.setup{}
     " require'lspconfig'.julials.setup{
       " server_path = "C:/Users/leimg/.julia/packages/LanguageServer/jiDTR/src"
     " }
-
-"               Gitgutter
-nnoremap <Leader>g<Space> :!git<Space>
-nnoremap <Leader>ga :!git add %<CR>
-nnoremap <Leader>gc :!git commit -am ""<left>
-nnoremap <Leader>gs :!git status<CR>
-nnoremap <Leader>gl :!git log %<CR>
-nnoremap <Leader>gb :!git blame %<CR>
-nnoremap <Leader>gp :!git pull<CR>
-nnoremap <Leader>gr :!git config credential.helper store<CR>
-" nnoremap gp :<C-u><C-R>=printf("!git push")<CR>
-" git config --global user.name "leimglg"
-" git config --global user.email "leimglg@gmail.com"
-" git reset HEAD file_to_unstage
-" git remote add origin https://github.com/leimglg/study-notes
-" git config credential.helper store
-" git clone repository_address
 
 
 

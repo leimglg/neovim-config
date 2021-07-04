@@ -93,7 +93,7 @@ let g:which_key_map['s'] = {
         \ 'f' : [':normal sf', 'Find file in current path'],
         \ 'w' : [':normal sw', 'Find word under cursor in cwd'],
         \ 'l' : [':normal sl', 'Find line in current buffer'],
-        \ 'L' : [':normal sL', 'Find line in current path'],
+        \ 'L' : [':normal sL', 'Find line in cwd'],
         \ 'H' : [':normal sH', 'Find help tag'],
         \ ':' : [':normal s:', 'Find vim command'],
         \ ';' : [':normal s;', 'Find in command history'],
