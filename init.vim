@@ -22,8 +22,8 @@ set mouse=a
 set completeopt=menuone,noselect
 set number
 set autoread
-set cursorline    
-set nowrap         
+set cursorline
+set nowrap
 set splitbelow
 set wildmenu 
 set nohlsearch
@@ -59,18 +59,20 @@ set showtabline=1
 set backspace=2
 set backspace=indent,eol,start
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+set title
+au BufEnter * let &titlestring=substitute(getcwd(), $HOME, '~', '')."   "
 
 nnoremap K 4<C-y>
 vnoremap K 4k
 nnoremap J 4<C-e>
 vnoremap J 4j
-nnoremap <Leader>J J
+nnoremap <Leader>j J
 noremap H b
 noremap L w
 nnoremap Y y$
 vnoremap Y "+y
-noremap gk gg
-noremap gj G
+noremap gk {
+noremap gj }
 noremap gh ^
 noremap gl $
 
@@ -81,6 +83,7 @@ nnoremap > >>
 nnoremap s <nop>
 nnoremap S :w<CR>
 nnoremap Q :q<CR>
+nnoremap <Leader>q <C-w>j:q<CR>
 noremap <C-k> <C-w>k
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -105,6 +108,7 @@ noremap <Space> <nop>
 nnoremap <Space><Space><Space> i<Space><Esc><Right>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 nnoremap <Leader>sc :<C-r>=printf("source %s/", stdpath('config'))<CR>
+nnoremap <Leader>s<Space> :source %<CR>
 nnoremap <Leader>ev :e $MYVIMRC<CR>
 nnoremap <Leader>ec :<C-r>=printf("e %s/", stdpath('config'))<CR>
 vnoremap <Leader>n :normal<Space>
@@ -119,22 +123,24 @@ nnoremap <Leader>x "zx
 vnoremap <Leader>x "zxxXi
 nnoremap <Leader>/ "zyiw/<C-R>z
 vnoremap <Leader>/ "zy/<C-R>z
+nnoremap <Leader>y "zyiw
+nnoremap <Leader>Y "zY
+vnoremap <Leader>y "zy
 nnoremap <LEADER>sw :set wrap<CR>
 nnoremap <LEADER>sW :set unwrap<CR>
 nnoremap <LEADER>sf :set ff=unix<CR>
 nnoremap <expr> <Leader>sM (expand("#1:p:t") ==? ".vimsession" ? ':execute ":mks!" expand("#1:p")' : ":mks .vimsession")."\|<CR>" 
 nnoremap <expr> <Leader>sO (expand("%") ==? ".vimsession" ? ':so %<CR>' : ":so ")
 nnoremap <Leader>sy A
-    \<Enter>⎛╔╦╗═  ┌┬┐─ ⎞ αβγδϵζηθικλμνξοπρστυϕχψω
-    \<Enter>⎜╠╬╣║  ├┼┤│ ⎟ ABΓΔEZHΘIKΛMNΞOΠPΣTΥΦXΨΩ
-    \<Enter>⎜╚╩╝   └┴┘  ⎟ ←↑→↓↔⇒⇔⇵∎∴∵∷≅≈
-    \<Enter>⎝⋅×÷√       ⎠ ∏∐∑√∛∞∠∥∫∬∭∮∯∰ ±⊕⊖⊗⊘⊙⊞⊢⊣⊤⊥
+    \<Enter>⎛╔╦╗═  ┌┬┐─ ⎞ αβγδϵζηθικλμνξοπρστυϕχψω ⎛╔╦╗═  ┌┬┐─ ⎞
+    \<Enter>⎜╠╬╣║  ├┼┤│ ⎟ ABΓΔEZHΘIKΛMNΞOΠPΣTΥΦXΨΩ ⎜╠╬╣║  ├┼┤│ ⎟
+    \<Enter>⎜╚╩╝   └┴┘  ⎟ ←↑→↓↔⇒⇔⇵∎∴∵∷≅≈ 𝜕∇        ⎜╚╩╝   └┴┘  ⎟
+    \<Enter>⎝⋅×÷√       ⎠ ∏∐∑√∛∞∠∥∫∬∭∮∯∰ ±⊕⊖⊗⊘⊙⊞   ⎝⋅×÷√       ⎠
 
 nnoremap ss :set splitright<CR>:vsplit<CR>
 nnoremap sv :set splitbelow<CR>:split<CR>
+nnoremap so <C-w>r
 "  close the buffer at the bottom right corner
-nnoremap sX <C-w>j<C-w>l:bd!<CR>
-nnoremap sx <C-w>j<C-w>l:q!<CR>
 " move the split screen to tab
 nnoremap sT <C-w>T
 
@@ -161,7 +167,10 @@ nnoremap b<down> :res -5<CR>
 nnoremap b<left> :vertical resize -5<CR>
 nnoremap b<right> :vertical resize +5<CR>
 " open the previous buffer in left split and current buffer in right
-" noremap bs :set nosplitright<CR>:vert sbp<CR>
+nnoremap bm :set nosplitright<CR>:vert sbp<CR>
+" open the previous buffer in current windown and current buffer in new tab
+nnoremap bw :b #<CR>:tab sb #<CR>
+
 " open buffer in tab (enter name or number of the buffer) 
 " noremap bi :tab sb<Space>
 " using ctrl-arrow key to scroll split without focusing
@@ -185,6 +194,7 @@ endfunc
 call plug#begin(stdpath('data') . '/plugged')
     " Plug 'junegunn/fzf'
     " Plug 'junegunn/fzf.vim'
+    " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -214,21 +224,22 @@ call plug#end()
 " <C-u> scroll up in preview window
 " <C-d> scroll down in preview window
 " <C-c> close telescope
+nnoremap bb <cmd>Telescope buffers<cr>
+nnoremap br <cmd>Telescope oldfiles<Cr>
+nnoremap <Leader>r <cmd>Telescope registers<Cr>
+nnoremap se <cmd>Telescope file_browser<cr>
 nnoremap sf <cmd>Telescope find_files<cr>
 nnoremap sl <cmd>Telescope current_buffer_fuzzy_find<Cr>
 nnoremap sL <cmd>Telescope live_grep<cr>
-nnoremap sb <cmd>Telescope buffers<cr>
-nnoremap sh <cmd>Telescope help_tags<cr>
-nnoremap sr <cmd>Telescope oldfiles<Cr>
-nnoremap sc <cmd>Telescope commands<Cr>
+nnoremap sH <cmd>Telescope help_tags<cr>
 nnoremap s/ <cmd>Telescope search_history<Cr>
-nnoremap s: <cmd>Telescope command_history<Cr>
+nnoremap s; <cmd>Telescope command_history<Cr>
+nnoremap s: <cmd>Telescope commands<Cr>
 " nnoremap sm <cmd>Telescope man_pages<Cr>
 nnoremap sm <cmd>Telescope marks<Cr>
 nnoremap sq <cmd>Telescope quickfix<Cr>
-nnoremap sL <cmd>Telescope loclist<Cr>
-nnoremap so <cmd>Telescope vim_options<Cr>
-nnoremap sR <cmd>Telescope registers<Cr>
+" nnoremap sL <cmd>Telescope loclist<Cr>
+nnoremap sO <cmd>Telescope vim_options<Cr>
 " nnoremap sa <cmd>Telescope autocommands<Cr>
 nnoremap st <cmd>Telescope current_buffer_tags<Cr>
 nnoremap sgc <cmd>Telescope git_commits<Cr>
@@ -370,6 +381,7 @@ let g:mkdp_open_to_the_world = 0
 lua << EOF
     require'lspconfig'.pyright.setup{}
     require'lspconfig'.vimls.setup{}
+    require'lspconfig'.julials.setup{}
 EOF
     " require'lspconfig'.julials.setup{}
     " require'lspconfig'.julials.setup{
@@ -377,16 +389,16 @@ EOF
     " }
 
 "               Gitgutter
-nnoremap g<Space> :!git<Space>
-nnoremap ga :!git add %<CR>
-nnoremap gc :!git commit -am ""<left>
-nnoremap gs :!git status<CR>
-nnoremap go :!git log %<CR>
-nnoremap gb :!git blame %<CR>
-" nnoremap gp :!git push<CR>
-nnoremap gr :!git config credential.helper store<CR>
+nnoremap <Leader>g<Space> :!git<Space>
+nnoremap <Leader>ga :!git add %<CR>
+nnoremap <Leader>gc :!git commit -am ""<left>
+nnoremap <Leader>gs :!git status<CR>
+nnoremap <Leader>gl :!git log %<CR>
+nnoremap <Leader>gb :!git blame %<CR>
+nnoremap <Leader>gp :!git pull<CR>
+nnoremap <Leader>gr :!git config credential.helper store<CR>
 " nnoremap gp :<C-u><C-R>=printf("!git push")<CR>
-" git config --global user.name "mlei"
+" git config --global user.name "leimglg"
 " git config --global user.email "leimglg@gmail.com"
 " git reset HEAD file_to_unstage
 " git remote add origin https://github.com/leimglg/study-notes

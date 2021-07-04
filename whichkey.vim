@@ -10,13 +10,16 @@ let g:which_key_map[' '] = {
         \ 'T' : [':normal s T', 'Translate word'],
         \ 'a' : [':Tabularize', 'Tabularize lines'],
         \ '/' : [':normal s /', 'Search the word under cursor'],
+        \ 'q' : [':normal s q', 'Quit the window under cursor'],
         \ 'e' : {
         \       'name' : 'Edit...',
-        \       'c' : [':echo "e config/"', 'edit file in "config"'],
+        \       'c' : [':echo "e stdpath(\"config\")"', 'edit file in "config"'],
         \       'v' : [':normal 0 ev', 'Edit $MYVIMRC'],
         \   },
         \ 's' : {
         \       'name' : 'Set & Sesstion...',
+        \       ' ' : [':normal s s ', 'Source current buffer'],
+        \       'c' : [':echo "source stdpath(\"config\")"', 'source file in "config"'],
         \       'f' : [':normal s sf', 'Set filetype = unix'],
         \       'v' : [':normal s sv', 'Source $MYVIMRC'],
         \       'w' : [':normal s sw', 'Set wrap'],
@@ -24,8 +27,8 @@ let g:which_key_map[' '] = {
         \       'o' : [':echo "SLoad <C-d>"', 'startify load session'],
         \       'm' : [':echo "SSave <C-d>"', 'startify make session'],
         \       'x' : [':normal s sx', 'Startify close session'],
-        \       'y' : [':normal s sy', 'Print symbol'],
-        \       'd' : ['echo "SDelete <C-d>"', 'startify load session'],
+        \       'y' : [':normal s sy', 'Print symbols'],
+        \       'd' : ['echo "SDelete <C-d>"', 'startify delete session'],
         \       'M' : [':normal s sM', 'Make .vimsession'],
         \       'O' : [':normal s sO', 'Source .vimsession'],
         \   },
@@ -43,6 +46,17 @@ let g:which_key_map[' '] = {
         \       't' : [':echo "Leaderf rg -t<Space>"', 'rg search with filetype'],
         \       'R' : [':echo "Leaderf --recall<Space>"', 'recall search history by parameter'],
         \   },
+        \ 'g' : {
+        \       'name' : 'Git...',
+        \       ' ' : [':echo "git "', 'git<Space>'],
+        \       'a' : [':normal s ga', 'git add %'],
+        \       'c' : [':echo "git commit -am "', 'git commit -am ""'],
+        \       'l' : [':normal s gl', 'git log %'],
+        \       's' : [':normal s gs', 'git status'],
+        \       'b' : [':normal s gb', 'git blame %'],
+        \       'p' : [':normal s gp', 'git pull'],
+        \       'r' : [':normal s gr', 'git config credential.helper store'],
+        \   },
       \ }
 let g:which_key_map['b'] =  {
         \ 'name' : 'Buffer...',
@@ -59,9 +73,11 @@ let g:which_key_map['b'] =  {
         \ 'b' : [':normal bb', 'List existing buffer'],
         \ 'p' : [':normal bp', 'Back to recent split'],
         \ 'r' : [':normal br', 'Recent buffers'],
-        \ 'u' : [':normal bu', 'Open recent buffer in right split'],
+        \ 'u' : [':normal bu', 'Open recent buffer'],
         \ 'x' : [':normal bx', 'Close the buffer and window'],
         \ 'X' : [':normal bX', 'Close the buffer, keep the window'],
+        \ 'm' : [':normal bm', 'Open 2 buffers in split window'],
+        \ 'w' : [':normal bw', 'Open current buffer in new tab'],
         \ '↑' : [':res +5', 'Increase split screen width'],
         \ '↓' : [':res -5', 'Decrease split screen width'],
         \ '←' : [':vertical resize -5', 'Increase split screen height'],
@@ -69,24 +85,21 @@ let g:which_key_map['b'] =  {
         \}
 let g:which_key_map['s'] = {
         \ 'name' : 'Search & Split...',
+        \ 'e' : [':normal se', 'Search in file explorer'],
         \ 's' : [':normal ss', 'Vertical split screen'],
+        \ 'o' : [':normal so', 'Rotate split screen'],
         \ 'T' : [':normal sT', 'Move split screen to tab'],
         \ 'v' : [':normal sv', 'Split screen'],
-        \ 'x' : [':normal sx', 'Close the right bottom split'],
-        \ 'X' : [':normal sX', 'Close and delete the right bottom split'],
         \ 'f' : [':normal sf', 'Find file in current path'],
         \ 'l' : [':normal sl', 'Find line in current buffer'],
         \ 'L' : [':normal sL', 'Find line in current path'],
-        \ 'b' : [':normal sb', 'Find opened buffer'],
-        \ 'h' : [':normal sh', 'Find help tag'],
-        \ 'r' : [':normal sr', 'Find recent opened files'],
-        \ 'c' : [':normal sc', 'Find vim command'],
-        \ ':' : [':normal s:', 'Find in command history'],
+        \ 'H' : [':normal sH', 'Find help tag'],
+        \ ':' : [':normal s:', 'Find vim command'],
+        \ ';' : [':normal s;', 'Find in command history'],
         \ '/' : [':normal s/', 'Find in search history'],
         \ 'm' : [':normal sm', 'Find in marks'],
         \ 'q' : [':normal sq', 'Find in quickfix'],
-        \ 'o' : [':normal so', 'Find vim options'],
-        \ 'R' : [':normal sR', 'Find in registers'],
+        \ 'O' : [':normal sO', 'Find vim options'],
         \ 't' : [':normal st', 'Find in ctags'],
         \ 'g' : {
         \       'name' : 'Search git...',
@@ -110,14 +123,28 @@ let g:which_key_map['t'] = {
 let g:which_key_map['g'] = {
         \ 'name' : 'Git & Comment & Go...',
         \ '//' : [':normal g//', 'Comment'],
-        \ ' ' : [':echo "git "', 'git<Space>'],
-        \ 'a' : [':normal ga', 'git add %'],
-        \ 'c' : [':echo "git commit -am "', 'git commit -am ""'],
-        \ 's' : [':normal gs', 'git status'],
-        \ 'o' : [':normal go', 'git log %'],
-        \ 'b' : [':normal gb', 'git blame %'],
-        \ 'r' : [':normal gr', 'git config credential.helper store'],
       \ }
+let g:which_key_map['z'] = {
+        \ 'name' : 'Fold...',
+        \ 'n' : [':normal zn', 'set foldlevel= '],
+      \ }
+let g:which_key_map[';'] = {
+        \ 'name' : '<++>...',
+        \ ';' : [':normal ;;', 'Search <++> and replace'],
+        \ "'" : [":normal ;'", 'Search <++>'],
+      \ }
+let g:which_key_map["m"] = {
+        \ 'name' : 'Make mark...',
+        \ "'" : [":normal ''", "Make mark '"],
+      \ }
+let g:which_key_map["'"] = {
+        \ 'name' : 'Jump to mark...',
+        \ "'" : [":normal ''", "Jump to mark '"],
+      \ }
+let g:which_key_map['S'] = [':normal S', 'Save current buffer']
+let g:which_key_map['Q'] = [':normal Q', 'Quit current buffer']
+let g:which_key_map['Y'] = [':normal Y', 'Yank to line end']
+" let g:which_key_map['<++>'] = ['<++>', '<++>']
 " let g:which_key_map['<++>'] = {
         " \ 'name' : '<++>',
         " \ '<++>' : [':normal <++>', '<++>'],
