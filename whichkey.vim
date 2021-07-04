@@ -121,8 +121,16 @@ let g:which_key_map['t'] = {
         \   },
       \ }
 let g:which_key_map['g'] = {
-        \ 'name' : 'Git & Comment & Go...',
+        \ 'name' : 'Go to...',
         \ '//' : [':normal g//', 'Comment'],
+        \ 'g' : [':normal gg', 'Go to buffer start'],
+        \ 'h' : [':normal gh', 'Go to line start'],
+        \ 'l' : [':normal gl', 'Go to line end'],
+        \ 'j' : [':normal gj', 'Go to next paragraph'],
+        \ 'k' : [':normal gk', 'Go to previous paragraph'],
+        \ 'f' : [':normal gf', 'Go to file'],
+        \ 'v' : [':normal gv', 'Go to visual selected words'],
+        \ 'i' : [':normal gi', 'Go to last insert position'],
       \ }
 let g:which_key_map['z'] = {
         \ 'name' : 'Fold...',
