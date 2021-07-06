@@ -66,7 +66,7 @@ nnoremap K 4<C-y>
 vnoremap K 4k
 nnoremap J 4<C-e>
 vnoremap J 4j
-nnoremap <Leader>j J
+nnoremap <Leader>J J
 noremap H b
 noremap L w
 nnoremap Y y$
@@ -101,6 +101,7 @@ nnoremap ;; /<++><CR>"_c4l
 inoremap ;; <C-g>u<ESC>/<++><CR>"_c4l
 nnoremap ;' /<++><CR>
 inoremap ;' <C-g>u<++>
+nnoremap ;<Space> ;
 
 noremap <Leader>h :set hlsearch<CR>
 noremap <Leader>H :set nohlsearch<CR>

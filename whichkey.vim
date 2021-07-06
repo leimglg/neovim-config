@@ -85,7 +85,7 @@ let g:which_key_map['b'] =  {
         \}
 let g:which_key_map['d'] = {
         \ 'name' : 'Delete...',
-        \ 'm' : [':echo "delmarks<space>', 'delete mark'],
+        \ 'm' : [':echo "delmarks<space>"', 'delete mark'],
         \ 'i' : {
         \       'name' : 'Delete in...',
         \       'p' : [':normal dip', 'Delete in paragraph'],
@@ -124,9 +124,6 @@ let g:which_key_map['t'] = {
         \ 'name' : 'Term & Toggle...',
         \ 'T' : [':normal tT', 'Open terminal at current window'],
         \ 'u' : [':normal tu', 'Toggle undotree'],
-        \ '<++>' : {
-        \       'name' : '<++>',
-        \       '<++>' : [':normal <++>', '<++>'],
         \   },
         \}
 let g:which_key_map['g'] = {
@@ -151,6 +148,7 @@ let g:which_key_map[';'] = {
         \ 'name' : '<++>...',
         \ ';' : [':normal ;;', 'Search <++> and replace'],
         \ "'" : [":normal ;'", 'Search <++>'],
+        \ " " : [":normal ;", 'Find next, ;'],
         \}
 let g:which_key_map["m"] = {
         \ 'name' : 'Make mark...',
