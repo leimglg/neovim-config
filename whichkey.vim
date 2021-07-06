@@ -123,7 +123,7 @@ let g:which_key_map['s'] = {
 let g:which_key_map['t'] = {
         \ 'name' : 'Term & Toggle...',
         \ 'T' : [':normal tT', 'Open terminal at current window'],
-        \ 'u' : [':normal tu
+        \ 'u' : [':normal tu', 'Open undo history'],
         \}
 let g:which_key_map['g'] = {
         \ 'name' : 'Go to...',
