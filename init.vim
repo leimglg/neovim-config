@@ -177,6 +177,7 @@ nnoremap bw :b #<CR>:tab sb #<CR>
 
 nnoremap tT :term<CR>
    
+nnoremap dm :delmarks<Space>
 
 nnoremap <silent><F5> :call CompileRun()<CR>
 func! CompileRun()
@@ -195,6 +196,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'junegunn/fzf'
     " Plug 'junegunn/fzf.vim'
     " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Plug 'airblade/vim-rooter'
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -211,11 +213,15 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'RRethy/vim-illuminate'      " highlight words under cursor
     Plug 'skywind3000/asyncrun.vim'   " run command in background,  :AsyncRun
     Plug 'tpope/vim-commentary'         " comment 
-    Plug 'neovim/nvim-lspconfig'
+    " Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-compe'
     Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
+
+"       vim rooter
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_patterns = ['=src', '.git', 'Grid.x', 'Makefile']
 
 "       telescope
 " <C-v> open in vertical split
@@ -397,12 +403,27 @@ nnoremap <Leader>a :Tabularize /
 let g:mkdp_open_to_the_world = 0
 
 
-"                    LSPconfig
+"    vim-which-key
+exec 'source ' stdpath('config').'/whichkey.vim'
+
+
+autocmd Filetype vim exec 'source ' stdpath('config').'/vim.vim'
+autocmd Filetype markdown exec 'source ' stdpath('config').'/markdown.vim'
+autocmd Filetype julia exec 'source ' stdpath('config').'/julia.vim'
+autocmd Filetype python exec 'source ' stdpath('config').'/python.vim'
+autocmd Filetype fortran exec 'source ' stdpath('config').'/fortran.vim'
+
+au FileType * set fo-=c fo-=r fo-=o
+
+
+
+
+"                    Lua
 " luafile D:\\init.lua
+    " require'lspconfig'.pyright.setup{}
+    " require'lspconfig'.vimls.setup{}
+    " require'lspconfig'.julials.setup{}
 lua << EOF
-    require'lspconfig'.pyright.setup{}
-    require'lspconfig'.vimls.setup{}
-    require'lspconfig'.julials.setup{}
     require("telescope").setup { defaults = {  mappings = { 
         i = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous",}, 
         n = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous",} } } }
@@ -414,15 +435,3 @@ EOF
 
 
 
-"    vim-which-key
-exec 'source ' stdpath('config').'/whichkey.vim'
-
-
-
-autocmd Filetype vim exec 'source ' stdpath('config').'/vim.vim'
-autocmd Filetype markdown exec 'source ' stdpath('config').'/markdown.vim'
-autocmd Filetype julia exec 'source ' stdpath('config').'/julia.vim'
-autocmd Filetype python exec 'source ' stdpath('config').'/python.vim'
-autocmd Filetype fortran exec 'source ' stdpath('config').'/fortran.vim'
-
-au FileType * set fo-=c fo-=r fo-=o

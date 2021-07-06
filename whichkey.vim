@@ -57,7 +57,7 @@ let g:which_key_map[' '] = {
         \       'p' : [':normal s gp', 'git pull'],
         \       'r' : [':normal s gr', 'git config credential.helper store'],
         \   },
-      \ }
+        \}
 let g:which_key_map['b'] =  {
         \ 'name' : 'Buffer...',
         \ 'h' : [':normal bh', 'Move to left tab'],
@@ -83,9 +83,17 @@ let g:which_key_map['b'] =  {
         \ '←' : [':vertical resize -5', 'Increase split screen height'],
         \ '→' : [':vertical resize +5', 'Decrease split screen height'],
         \}
+let g:which_key_map['d'] = {
+        \ 'name' : 'Delete...',
+        \ 'm' : [':echo "delmarks<space>', 'delete mark'],
+        \ 'i' : {
+        \       'name' : 'Delete in...',
+        \       'p' : [':normal dip', 'Delete in paragraph'],
+        \   },
+        \}
 let g:which_key_map['s'] = {
         \ 'name' : 'Search & Split...',
-        \ 'e' : [':normal se', 'Search in file explorer'],
+        \ 'e' : [':normal se', 'File explorer'],
         \ 's' : [':normal ss', 'Vertical split screen'],
         \ 'o' : [':normal so', 'Rotate split screen'],
         \ 'T' : [':normal sT', 'Move split screen to tab'],
@@ -111,7 +119,7 @@ let g:which_key_map['s'] = {
         \       'S' : [':normal sgS', 'Search git stash'],
         \   },
         \ '<++>' : [':normal <++>', '<++>'],
-      \ }
+        \}
 let g:which_key_map['t'] = {
         \ 'name' : 'Term & Toggle...',
         \ 'T' : [':normal tT', 'Open terminal at current window'],
@@ -120,36 +128,47 @@ let g:which_key_map['t'] = {
         \       'name' : '<++>',
         \       '<++>' : [':normal <++>', '<++>'],
         \   },
-      \ }
+        \}
 let g:which_key_map['g'] = {
         \ 'name' : 'Go to...',
         \ '//' : [':normal g//', 'Comment'],
         \ 'g' : [':normal gg', 'Go to buffer start'],
-        \ 'h' : [':normal gh', 'Go to line start'],
-        \ 'l' : [':normal gl', 'Go to line end'],
-        \ 'j' : [':normal gj', 'Go to next paragraph'],
-        \ 'k' : [':normal gk', 'Go to previous paragraph'],
+        \ 'h' : [':normal gh', 'Go to line start, ^'],
+        \ 'l' : [':normal gl', 'Go to line end, $'],
+        \ 'j' : [':normal gj', 'Go to next paragraph, }'],
+        \ 'k' : [':normal gk', 'Go to previous paragraph, {'],
         \ 'f' : [':normal gf', 'Go to file'],
-        \ 'v' : [':normal gv', 'Go to visual selected words'],
+        \ 'v' : [':normal gv', 'Go to last visual selection'],
         \ 'i' : [':normal gi', 'Go to last insert position'],
-      \ }
+        \ ";" : [":normal g;", 'Go to previous change position'],
+        \ "," : [":normal g,", 'Go to next change position'],
+        \}
 let g:which_key_map['z'] = {
         \ 'name' : 'Fold...',
         \ 'n' : [':normal zn', 'set foldlevel= '],
-      \ }
+        \}
 let g:which_key_map[';'] = {
         \ 'name' : '<++>...',
         \ ';' : [':normal ;;', 'Search <++> and replace'],
         \ "'" : [":normal ;'", 'Search <++>'],
-      \ }
+        \}
 let g:which_key_map["m"] = {
         \ 'name' : 'Make mark...',
-        \ "'" : [":normal ''", "Make mark '"],
-      \ }
+        \ "'" : [":normal ''", "Mark as a jump position '"],
+        \ "a-zA-z" : [":normal <++>", 'Mark a-zA-z'],
+        \}
 let g:which_key_map["'"] = {
         \ 'name' : 'Jump to mark...',
-        \ "'" : [":normal ''", "Jump to mark '"],
-      \ }
+        \ "a-zA-z" : [":normal 'a-zA-z", 'Jump to mark a-zA-z'],
+        \ "0-9" : [":normal '0-9", 'Jump to previous edit file 0-9'],
+        \ "'" : [":normal ''", "Jump back"],
+        \ "[" : [":normal '[", 'Jump to last yank start'],
+        \ "]" : [":normal ']", 'Jump to last yank end'],
+        \ "." : [":normal '.", 'Jump to last change position'],
+        \ "^" : [":normal '^", 'Jump to last insert position'],
+        \ "<" : [":normal '<", 'Jump to start of last visual selection'],
+        \ ">" : [":normal '>", 'Jump to start of last visual selection'],
+        \}
 let g:which_key_map['S'] = [':normal S', 'Save current buffer']
 let g:which_key_map['Q'] = [':normal Q', 'Quit current buffer']
 let g:which_key_map['Y'] = [':normal Y', 'Yank to line end']
@@ -161,4 +180,4 @@ let g:which_key_map['Y'] = [':normal Y', 'Yank to line end']
         " \       'name' : '<++>',
         " \       '<++>' : [':normal <++>', '<++>'],
         " \   },
-      " \ }
+        " \}
