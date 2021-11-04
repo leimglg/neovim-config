@@ -300,7 +300,8 @@ endfunc
 set t_Co=256
 colorscheme codedark
 hi statusline ctermfg=015 ctermbg=016 guifg=#ffffff guibg=#000000
-hi TabLine ctermfg=black ctermbg=white guifg=black guibg=white
+hi TabLine ctermfg=black ctermbg=grey cterm=bold guifg=black guibg=grey gui=bold
+hi TabLineSel cterm=bold gui=bold
 hi TabLineFill ctermbg=grey guibg=grey
 " hi TabLineSel ctermfg=black ctermbg=Yellow guifg=black guibg=Yellow
 " hi Search guibg=#444444 ctermbg=238
