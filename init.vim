@@ -19,6 +19,7 @@ tnoremap <Esc> <C-\><C-n>
 cnoremap jj <Esc>
 let mapleader = " "
 set mouse=a
+set mmp=2000
 set completeopt=menuone,noselect
 set number
 set autoread
@@ -55,12 +56,13 @@ set scrolloff=5
 set laststatus=2
 set statusline=%<%n.\ \[\ %{expand('%:p:h:t')}\ \]\ \ %t\ %r%m%w\ %=%y\ %l\/%L\ %p%%
 set showtabline=1
-" set autochdir
+set autochdir
 set backspace=2
 set backspace=indent,eol,start
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 set title
-au BufEnter * let &titlestring=substitute(getcwd(), $HOME, '~', '')."   "
+" au BufEnter * let &titlestring=substitute(getcwd(), $HOME, '~', '')."   "
+au BufEnter * let &titlestring=expand('%:p:h:t')
 
 nnoremap K 4<C-y>
 vnoremap K 4k
@@ -70,7 +72,7 @@ nnoremap <Leader>J J
 noremap H b
 noremap L w
 nnoremap Y y$
-vnoremap Y "+y
+vnoremap Y "+ygv
 noremap gk {
 noremap gj }
 noremap gh ^
@@ -80,6 +82,8 @@ noremap - <C-x>
 noremap = <C-a>
 nnoremap < <<
 nnoremap > >>
+vnoremap < <gv
+vnoremap > >gv
 nnoremap s <nop>
 nnoremap S :w<CR>
 nnoremap Q :q<CR>
@@ -189,6 +193,8 @@ func! CompileRun()
 		exec "MarkdownPreview"
 	elseif &filetype == 'vimwiki'
 		exec "MarkdownPreview"
+	elseif match(expand('%'), "[.]mcr$")
+		exec ":AsyncRun tec360 %"
 	endif
 endfunc
 
@@ -197,6 +203,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'junegunn/fzf'
     " Plug 'junegunn/fzf.vim'
     " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Plug 'nvim-treesitter/playground'
     " Plug 'airblade/vim-rooter'
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
@@ -294,6 +301,7 @@ set t_Co=256
 colorscheme codedark
 hi statusline ctermfg=015 ctermbg=016 guifg=#ffffff guibg=#000000
 hi TabLine ctermfg=black ctermbg=white guifg=black guibg=white
+hi TabLineFill ctermbg=grey guibg=grey
 " hi TabLineSel ctermfg=black ctermbg=Yellow guifg=black guibg=Yellow
 " hi Search guibg=#444444 ctermbg=238
 " hi normal guifg=gray94 ctermfg=254
@@ -330,6 +338,17 @@ hi TabLine ctermfg=black ctermbg=white guifg=black guibg=white
 
 
 "               Gitgutter
+" <leader>hp to preview change, ]c, [c to jump to next and previous changes, 
+highlight GitGutterDelete guifg=#ffffff ctermfg=15
+function! GitStatus()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    if (a + m + r > 0)
+        return printf('+%d ~%d -%d  ', a, m, r)
+    endif
+    return ""
+endfunction
+set statusline=%<%n.\ \[\ %{expand('%:p:h:t')}\ \]\ \ %t\ %r%m%w\ %=%{GitStatus()}%y\ \ %l\/%L\ \ %p%%
+
 nnoremap <Leader>g<Space> :!git<Space>
 nnoremap <Leader>ga :!git add %<CR>
 nnoremap <Leader>gc :!git commit -am ""<left>
@@ -371,12 +390,10 @@ let g:startify_enable_special = 0
 let g:Illuminate_delay = 400
 hi link illuminatedWord Search
 
-"   git gutter
-highlight GitGutterDelete guifg=#ffffff ctermfg=15
-
 "  AsyncRun
 "  :AsyncRun
-let g:asyncrun_open=15
+let g:asyncrun_open=12
+nnoremap <F6> :AsyncStop!<CR>
 
 
 " nvim-compe

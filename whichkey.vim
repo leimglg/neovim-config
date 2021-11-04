@@ -10,7 +10,7 @@ let g:which_key_map[' '] = {
         \ 'T' : [':normal s T', 'Translate word'],
         \ 'a' : [':Tabularize', 'Tabularize lines'],
         \ '/' : [':normal s /', 'Search the word under cursor'],
-        \ 'q' : [':normal s q', 'Quit the window under cursor'],
+        \ 'q' : [':normal s q', 'Quit the window under current window'],
         \ 'e' : {
         \       'name' : 'Edit...',
         \       'c' : [':echo "e stdpath(\"config\")"', 'edit file in "config"'],
