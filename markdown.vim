@@ -40,3 +40,26 @@ function! ToggleCheckbox()
     execute "normal rx"
   endif
 endfunction
+
+let g:which_key_map[';'] = {
+        \ 'name' : '<++>...',
+        \ "'" : [":normal ;'", 'Search <++>'],
+        \ '1' : [':normal ;1', 'Heading 1'],
+        \ '2' : [':normal ;2', 'Heading 2'],
+        \ 'b' : [':normal ;b', 'Bold'],
+        \ 'c' : [':normal ;c', 'Code'],
+        \ 'C' : [':normal ;C', 'Code block'],
+        \ 'e' : [':normal ;e', 'Emphasize'],
+        \ 'l' : [':normal ;l', 'Link'],
+        \ 's' : [':normal ;s', 'Strikethrough'],
+        \ 'p' : [':normal ;p', 'Picture'],
+        \ 'l' : [':normal ;l', 'Name link'],
+        \ 'x' : [':normal ;x', 'Check list (toggle)'],
+        \ 'k' : [':normal ;k', 'Equation'],
+        \ 'K' : [':normal ;K', 'Equation block'],
+        \ 'f' : [':normal ;f', 'frac'],
+        \ '\' : [':normal ;\', '\'],
+        \ 'm' : [':normal ;m', 'matrix'],
+        \ 't' : [':normal ;t', 'Table'],
+      \ }
+        " \ '<++>' : [':normal <++>', '<++>'],
