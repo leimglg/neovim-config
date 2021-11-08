@@ -43,6 +43,7 @@ endfunction
 
 let g:which_key_map[';'] = {
         \ 'name' : '<++>...',
+        \ ";" : [":normal ;;", 'Search <++> and replace'],
         \ "'" : [":normal ;'", 'Search <++>'],
         \ '1' : [':normal ;1', 'Heading 1'],
         \ '2' : [':normal ;2', 'Heading 2'],
