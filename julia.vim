@@ -29,4 +29,13 @@ nnoremap <buffer>                                     ; H
                   \<Esc>
 
 
-
+let g:which_key_map[';'] = {
+        \ 'name' : '<++>...',
+        \ ";" : [":normal ;;", 'Search <++> and replace'],
+        \ "'" : [":normal ;'", 'Search <++>'],
+        \ 'F' : [':normal ;F', 'function'],
+        \ 'f' : [':normal ;f', 'for'],
+        \ 'w' : [':normal ;w', 'open, w'],
+        \ 'i' : [':normal ;i', 'if'],
+      \ }
+        " \ '<++>' : [':normal <++>', '<++>'],
