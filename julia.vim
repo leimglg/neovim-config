@@ -1,4 +1,4 @@
-inoremap <buffer> ;F <C-g>u<Esc>ccfunction  ()<Enter><++><Enter>end<Enter><++><Esc><up><up><up>0f(<left>i
+inoremap <buffer> ;F <C-g>u<Esc>ccfunction (<++>)<Enter><++><Enter>end<Enter><++><Esc><up><up><up>0f(i
 inoremap <buffer> ;f <C-g>u<Esc>ccfor  = <++><Enter><++><Enter>end<Enter><++><Esc><up><up><up>0fr<right><right>i
 inoremap <buffer> ;w <C-g>u<Esc>ccopen(, "w") do io<Enter>println(io, <++>)<Enter><++><Enter>end<Enter><++><Esc><up><up><up>^f,i
 inoremap <buffer> ;i <C-g>u<Esc>ccif <CR><++><CR>end<CR><++><Esc><up><up><up>0A
