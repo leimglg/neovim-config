@@ -13,10 +13,10 @@ cmap <S-Insert> <MiddleMouse>
 cmap <C-v> <C-R>"
 " set clipboard^=unnamed,unnamedplus
 
-inoremap jj <Esc>
-tnoremap jj <C-\><C-n>
+inoremap jk <Esc>
+tnoremap jk <C-\><C-n>
 tnoremap <Esc> <C-\><C-n>
-cnoremap jj <Esc>
+cnoremap jk <Esc>
 let mapleader = " "
 set mouse=a
 set mmp=2000
