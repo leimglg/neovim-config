@@ -101,7 +101,7 @@ nnoremap <C-down> <C-w>p5<C-y><C-w>p
 
 noremap zn :set foldlevel=
 
-nnoremap ;; /<++><CR>"_c4l
+nnoremap ;; /<++><CR>
 inoremap ;; <C-g>u<ESC>/<++><CR>"_c4l
 nnoremap ;' /<++><CR>
 inoremap ;' <C-g>u<++>
