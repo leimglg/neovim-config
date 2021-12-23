@@ -1,16 +1,4 @@
-" left mouse select  to copy, shift+insert and ctrl+v and right click to paste in insert mode, 
-" middle mouse key is paste by default (works in normal, insert, visual, and command mode)
-vmap <LeftRelease> "*ygv
-imap <S-Insert> <C-R>*
-nmap <S-Insert> "*p
-vmap <S-Insert> "*p
-vmap <C-Insert> "*ygv
-imap <C-v> <C-R>"
-imap <RightMouse> <C-R>*
-cmap <RightMouse> <MiddleMouse>
-cmap <S-Insert> <MiddleMouse>
-cmap <C-v> <C-R>"
-" set clipboard^=unnamed,unnamedplus
+exec 'source ' stdpath('config').'/clipboard.vim' 
 
 inoremap jk <Esc>
 tnoremap jk <C-\><C-n>
@@ -221,6 +209,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'skywind3000/asyncrun.vim'   " run command in background,  :AsyncRun
     Plug 'tpope/vim-commentary'         " comment 
     " Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/nvim-compe'
     Plug 'liuchengxu/vim-which-key'
 call plug#end()
