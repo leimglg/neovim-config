@@ -1,4 +1,3 @@
-
 " left mouse select  to copy, shift+insert and ctrl+v and right click to paste in insert mode, 
 " middle mouse key is paste by default (works in normal, insert, visual, and command mode)
 vmap <LeftRelease> "*ygv
