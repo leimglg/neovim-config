@@ -14,7 +14,7 @@ cmap <C-v> <C-R>"
 
 if has('win32')
 
-elseif isdirectory("/mnt/c/Windows") " wsl on windows
+elseif isdirectory("/mnt/c/Windows") " wsl on windows, first install win32yank using scoop on windows
     let g:clipboard = {
               \   'name': 'win32yank-wsl',
               \   'copy': {
