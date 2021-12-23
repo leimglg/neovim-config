@@ -6,17 +6,15 @@ imap <S-Insert> <C-R>*
 nmap <S-Insert> "*p
 vmap <S-Insert> "*p
 vmap <C-Insert> "*ygv
-imap <C-v> <C-R>*
+imap <C-v> <C-R>"
 imap <RightMouse> <C-R>*
 cmap <RightMouse> <MiddleMouse>
 cmap <S-Insert> <MiddleMouse>
-cmap <C-v> <C-R>*
-" set clipboard^=unnamed,unnamedplus
+cmap <C-v> <C-R>"
 
 if has('win32')
 
 elseif isdirectory("/mnt/c/Windows") " wsl on windows
-    " set clipboard+=unnamedplus
     let g:clipboard = {
               \   'name': 'win32yank-wsl',
               \   'copy': {
