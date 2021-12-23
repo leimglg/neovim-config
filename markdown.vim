@@ -51,7 +51,6 @@ let g:which_key_map[';'] = {
         \ 'c' : [':normal ;c', 'Code'],
         \ 'C' : [':normal ;C', 'Code block'],
         \ 'e' : [':normal ;e', 'Emphasize'],
-        \ 'l' : [':normal ;l', 'Link'],
         \ 's' : [':normal ;s', 'Strikethrough'],
         \ 'p' : [':normal ;p', 'Picture'],
         \ 'l' : [':normal ;l', 'Name link'],
