@@ -1,13 +1,10 @@
+let mapleader = " "
+
 exec 'source ' stdpath('config').'/clipboard.vim' 
 
-inoremap jk <Esc>
-tnoremap jk <C-\><C-n>
-tnoremap <Esc> <C-\><C-n>
-cnoremap jk <Esc>
-let mapleader = " "
 set mouse=a
 set mmp=2000
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 set number
 set autoread
 set cursorline
@@ -25,6 +22,7 @@ set tabstop=4
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+set shiftround
 set foldmethod=indent
 set foldlevel=99
 set completeopt=longest,noinsert,menuone,noselect,preview
@@ -51,6 +49,11 @@ set title
 " au BufEnter * let &titlestring=substitute(getcwd(), $HOME, '~', '')."   "
 au BufEnter * let &titlestring=expand('%:p:h:t')
 
+inoremap jk <Esc>
+tnoremap jk <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
+cnoremap jk <Esc>
+
 nnoremap K 4<C-y>
 vnoremap K 4k
 nnoremap J 4<C-e>
@@ -60,21 +63,32 @@ noremap H b
 noremap L w
 nnoremap Y y$
 vnoremap Y "+ygv
+nnoremap s <nop>
+nnoremap S :w<CR>
+vnoremap S <Esc>:w<CR>gv
+nnoremap Q :q<CR>
+
 noremap gk {
 noremap gj }
 noremap gh ^
 noremap gl $
+noremap gp `[
+noremap gP `]
 
-noremap - <C-x>
-noremap = <C-a>
-nnoremap < <<
-nnoremap > >>
-vnoremap < <gv
-vnoremap > >gv
-nnoremap s <nop>
-nnoremap S :w<CR>
-nnoremap Q :q<CR>
-nnoremap <Leader>q <C-w>j:q<CR>
+noremap zc "zc
+noremap zC "zC
+noremap zd "zd
+noremap zD "zD
+noremap zp "zp
+noremap zP "zP
+nnoremap zx "zx
+nnoremap x "_x
+nnoremap zy viw"zygv
+nnoremap zY "zY
+vnoremap zy "zy
+
+noremap zn :set foldlevel=
+
 noremap <C-k> <C-w>k
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -86,43 +100,50 @@ cnoremap <C-j> <C-g>
 nnoremap <C-up> <C-w>p5<C-e><C-w>p
 nnoremap <C-down> <C-w>p5<C-y><C-w>p
 
-noremap zn :set foldlevel=
+noremap - <C-x>
+noremap = <C-a>
+nnoremap < <<
+nnoremap > >>
+vnoremap < <gv
+vnoremap > >gv
 
-nnoremap ;; /<++><CR>
-inoremap ;; <C-g>u<ESC>/<++><CR>"_c4l
-nnoremap ;' /<++><CR>
-inoremap ;' <C-g>u<++>
-nnoremap ;<Space> ;
 
-noremap <Leader>h :set hlsearch<CR>
-noremap <Leader>H :set nohlsearch<CR>
-noremap <Space> <nop>
-nnoremap <Space><Space><Space> i<Space><Esc><Right>
-nnoremap <Leader>sv :source $MYVIMRC<CR>
-nnoremap <Leader>sc :<C-r>=printf("source %s/", stdpath('config'))<CR>
-nnoremap <Leader>s<Space> :source %<CR>
-nnoremap <Leader>ev :e $MYVIMRC<CR>
-nnoremap <Leader>ec :<C-r>=printf("e %s/", stdpath('config'))<CR>
+nnoremap <Leader>q <C-w>j:q<CR>
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
 vnoremap <Leader>n :normal<Space>
 nnoremap <Leader>r :reg<CR>
-noremap <Leader>c "zc
-noremap <Leader>C "zC
-noremap <Leader>d "zd
-noremap <Leader>D "zD
-noremap <Leader>p "zp
-noremap <Leader>P "zP
-nnoremap <Leader>x "zx
-vnoremap <Leader>x "zxxXi
+noremap <Space> <nop>
+nnoremap <Space><Space><Space> i<Space><Esc><Right>
+
+vnoremap <Leader>[ <Esc>`><Right>"_xi<++><Esc>`<"_Xi
+vnoremap <Leader>{ <Esc>`>"_xi<++><Esc>`<"_xi
+vnoremap <Leader>] <Esc>`>a<++><Esc>`<i
 nnoremap <Leader>/ "zyiw/<C-R>z
 vnoremap <Leader>/ "zy/<C-R>z
-nnoremap <Leader>y "zyiw
-nnoremap <Leader>Y "zY
-vnoremap <Leader>y "zy
+
+nnoremap <Leader>s<Space> :source %<CR>
+noremap <Leader>sh :set hlsearch<CR>
+noremap <Leader>sH :set nohlsearch<CR>
 nnoremap <LEADER>sw :set wrap<CR>
 nnoremap <LEADER>sW :set unwrap<CR>
 nnoremap <LEADER>sf :set ff=unix<CR>
+nnoremap <Leader>sv :source $MYVIMRC<CR>
+nnoremap <Leader>sc :<C-r>=printf("source %s/", stdpath('config'))<CR>
+nnoremap <Leader>ev :e $MYVIMRC<CR>
+nnoremap <Leader>ec :<C-r>=printf("e %s/", stdpath('config'))<CR>
 nnoremap <expr> <Leader>sM (expand("#1:p:t") ==? ".vimsession" ? ':execute ":mks!" expand("#1:p")' : ":mks .vimsession")."\|<CR>" 
 nnoremap <expr> <Leader>sO (expand("%") ==? ".vimsession" ? ':so %<CR>' : ":so ")
+
+nnoremap ;; /<++><CR>
+nnoremap ;: /<++><CR>N
+inoremap ;; <C-g>u<ESC>/<++><CR>"_c4l
+inoremap ;: <C-g>u<ESC>?<++><CR>N"_c4l
+nnoremap ;' i<++><Esc>
+vnoremap ;' c<++><Esc>
+inoremap ;' <C-g>u<++>
+inoremap <CR> <C-g>u<CR>
+
 nnoremap <Leader>sy A
     \<Enter>⎛╔╦╗═  ┌┬┐─ ⎞ αβγδϵζηθικλμνξοπρστυϕχψω
     \<Enter>⎜╠╬╣║  ├┼┤│ ⎟ ABΓΔEZHΘIKΛMNΞOΠPΣTΥΦXΨΩ
@@ -131,8 +152,8 @@ nnoremap <Leader>sy A
 
 nnoremap ss :set splitright<CR>:vsplit<CR>
 nnoremap sv :set splitbelow<CR>:split<CR>
+" rotate split screen
 nnoremap so <C-w>r
-"  close the buffer at the bottom right corner
 " move the split screen to tab
 nnoremap sT <C-w>T
 
@@ -180,7 +201,7 @@ func! CompileRun()
 		exec "MarkdownPreview"
 	elseif &filetype == 'vimwiki'
 		exec "MarkdownPreview"
-	elseif match(expand('%'), "[.]mcr$")
+	elseif match(expand('%'), "[.]mcr$") == 1
 		exec ":AsyncRun tec360 %"
 	endif
 endfunc
@@ -199,7 +220,6 @@ call plug#begin(stdpath('data') . '/plugged')
 	Plug 'mbbill/undotree'
 	Plug 'mhinz/vim-startify'   " start screen for vim, :h startify
 	" Plug 'liuchengxu/vista.vim'    " taglist, require 
-	" Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }    "find word in current buffer and other files, and preview them. require rg to search other files.
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'    " 
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown','vim-plug']}    " note: wait a while after running ':PlugInstall', it's downloading binary files
@@ -208,9 +228,14 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'RRethy/vim-illuminate'      " highlight words under cursor
     Plug 'skywind3000/asyncrun.vim'   " run command in background,  :AsyncRun
     Plug 'tpope/vim-commentary'         " comment 
-    " Plug 'neovim/nvim-lspconfig'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/vim-vsnip'
-    Plug 'hrsh7th/nvim-compe'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
     Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
@@ -386,9 +411,9 @@ nnoremap <F6> :AsyncStop!<CR>
 
 
 " nvim-compe
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-let g:compe = {'debug': v:true, 'source': {'path': v:true, 'buffer': v:true, 'calc': v:true, 'nvim_lsp': v:true, 'nvim_lua': v:true, 'ultisnips': v:true}}
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" let g:compe = {'debug': v:true, 'source': {'path': v:true, 'buffer': v:true, 'calc': v:true, 'nvim_lsp': v:true, 'nvim_lua': v:true, 'ultisnips': v:true}}
 
 
 
@@ -422,18 +447,38 @@ autocmd Filetype fortran exec 'source ' stdpath('config').'/fortran.vim'
 
 au FileType * set fo-=c fo-=r fo-=o
 
-
+" vim-vsnip
+" exec 'let g:vsnip_snippet_dir = "'.stdpath('config').'/vsnip"' 
+let g:vsnip_snippet_dir = stdpath('config') . '/vsnip'
 
 
 "                    Lua
 " luafile D:\\init.lua
     " require'lspconfig'.pyright.setup{}
-    " require'lspconfig'.vimls.setup{}
     " require'lspconfig'.julials.setup{}
+    " require'lspconfig'.vimls.setup{}
 lua << EOF
     require("telescope").setup { defaults = {  mappings = { 
-        i = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous",}, 
-        n = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous",} } } }
+        i = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous", ["<up>"] = "preview_scrolling_up", ["<down>"] = "preview_scrolling_down",}, 
+        n = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous", ["<up>"] = "preview_scrolling_up", ["<down>"] = "preview_scrolling_down",} } } }
+    local cmp = require('cmp')
+    cmp.setup{
+        snippet = { expand = function(args) vim.fn["vsnip#anonymous"](args.body) end },
+        mapping = {
+            ['<CR>'] = cmp.mapping.confirm({ select = false }),
+            ['<Tab>'] = cmp.mapping(function(fallback) if cmp.visible() then cmp.select_next_item() elseif vim.fn['vsnip#available']() == 1 then vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '') else fallback() end end, {"i", "s",}),
+            ['<S-Tab>'] = cmp.mapping(function(fallback) if cmp.visible() then cmp.select_prev_item() else fallback() end end, {"i", "s",}),
+            ['jk'] = cmp.mapping(function(fallback) if vim.fn['vsnip#available']() == 1 then vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '') else fallback() end end, {"i", "s",}),
+        },
+        sources = {
+            { name = 'buffer', max_item_count = 20, keyword_length = 2},
+            { name = 'vsnip', max_item_count = 20, keyword_length = 1},
+            { name = 'path', max_item_count = 20, option = { get_cwd = function() end} },
+        },
+    }
+    cmp.setup.cmdline('/', { sources = {{ name = 'buffer', max_item_count = 20 }, }})
+    cmp.setup.cmdline(':', { sources = {{ name = 'path', max_item_count = 20 }, { name = 'cmdline', max_item_count = 20 }, }})
+
 EOF
     " require'lspconfig'.julials.setup{}
     " require'lspconfig'.julials.setup{
