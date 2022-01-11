@@ -65,6 +65,8 @@ nnoremap Y y$
 vnoremap Y "+ygv
 nnoremap s <nop>
 nnoremap S :w<CR>
+inoremap <C-s> <Esc>:w<CR>
+nnoremap <C-s> :w<CR>
 vnoremap S <Esc>:w<CR>gv
 nnoremap Q :q<CR>
 
@@ -75,6 +77,8 @@ noremap gl $
 noremap gp `[
 noremap gP `]
 
+noremap c "_c
+noremap C "_C
 noremap zc "zc
 noremap zC "zC
 noremap zd "zd
@@ -86,6 +90,7 @@ nnoremap x "_x
 nnoremap zy viw"zygv
 nnoremap zY "zY
 vnoremap zy "zy
+vnoremap p pgvy
 
 noremap zn :set foldlevel=
 
@@ -95,8 +100,6 @@ noremap <C-j> <C-w>j
 noremap <C-l> <C-w>l
 inoremap <C-k> <up>
 inoremap <C-j> <down>
-cnoremap <C-k> <C-t>
-cnoremap <C-j> <C-g>
 nnoremap <C-up> <C-w>p5<C-e><C-w>p
 nnoremap <C-down> <C-w>p5<C-y><C-w>p
 
@@ -113,11 +116,12 @@ nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
 vnoremap <Leader>n :normal<Space>
 nnoremap <Leader>r :reg<CR>
+nnoremap <Leader>t :term<CR>
+nnoremap <Leader>z za
 noremap <Space> <nop>
 nnoremap <Space><Space><Space> i<Space><Esc><Right>
 
 vnoremap <Leader>[ <Esc>`><Right>"_xi<++><Esc>`<"_Xi
-vnoremap <Leader>{ <Esc>`>"_xi<++><Esc>`<"_xi
 vnoremap <Leader>] <Esc>`>a<++><Esc>`<i
 nnoremap <Leader>/ "zyiw/<C-R>z
 vnoremap <Leader>/ "zy/<C-R>z
@@ -129,9 +133,8 @@ nnoremap <LEADER>sw :set wrap<CR>
 nnoremap <LEADER>sW :set unwrap<CR>
 nnoremap <LEADER>sf :set ff=unix<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
-nnoremap <Leader>sc :<C-r>=printf("source %s/", stdpath('config'))<CR>
-nnoremap <Leader>ev :e $MYVIMRC<CR>
-nnoremap <Leader>ec :<C-r>=printf("e %s/", stdpath('config'))<CR>
+nnoremap <Leader>se :e $MYVIMRC<CR>
+nnoremap <Leader>sc :<C-r>=printf("e %s/", stdpath('config'))<CR>
 nnoremap <expr> <Leader>sM (expand("#1:p:t") ==? ".vimsession" ? ':execute ":mks!" expand("#1:p")' : ":mks .vimsession")."\|<CR>" 
 nnoremap <expr> <Leader>sO (expand("%") ==? ".vimsession" ? ':so %<CR>' : ":so ")
 
@@ -139,7 +142,6 @@ nnoremap ;; /<++><CR>
 nnoremap ;: /<++><CR>N
 inoremap ;; <C-g>u<ESC>/<++><CR>"_c4l
 inoremap ;: <C-g>u<ESC>?<++><CR>N"_c4l
-nnoremap ;' i<++><Esc>
 vnoremap ;' c<++><Esc>
 inoremap ;' <C-g>u<++>
 inoremap <CR> <C-g>u<CR>
@@ -153,9 +155,20 @@ nnoremap <Leader>sy A
 nnoremap ss :set splitright<CR>:vsplit<CR>
 nnoremap sv :set splitbelow<CR>:split<CR>
 " rotate split screen
-nnoremap so <C-w>r
+nnoremap sr <C-w>r
+nnoremap sR <C-w>R
 " move the split screen to tab
-nnoremap sT <C-w>T
+nnoremap st <C-w>T
+" move to split window
+nnoremap sk <C-w>k
+nnoremap sh <C-w>h
+nnoremap sj <C-w>j
+nnoremap sl <C-w>l
+" move split window
+nnoremap sK <C-w>K
+nnoremap sH <C-w>H
+nnoremap sJ <C-w>J
+nnoremap sL <C-w>L
 
 nnoremap bt :set splitright<CR>:vsplit<CR><C-w>T
 nnoremap ba :tab sball<CR>
@@ -188,7 +201,6 @@ nnoremap bw :b #<CR>:tab sb #<CR>
 " noremap bi :tab sb<Space>
 " using ctrl-arrow key to scroll split without focusing
 
-nnoremap tT :term<CR>
    
 nnoremap dm :delmarks<Space>
 
@@ -213,6 +225,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Plug 'nvim-treesitter/playground'
     " Plug 'airblade/vim-rooter'
+    " Plug 'Mofiqul/vscode.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -245,51 +258,40 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_patterns = ['=src', '.git', 'Grid.x', 'Makefile']
 
 "       telescope
-" <C-v> open in vertical split
-" <C-x> open in horizontal split
+" <C-s> open in vertical split
+" <C-v> open in horizontal split
 " <C-t> open in new tab
-" <C-u> scroll up in preview window
-" <C-d> scroll down in preview window
+" <up> scroll up in preview window
+" <down> scroll down in preview window
 " <C-f> delete buffer
 " <C-c> close telescope
 nnoremap bb <cmd>Telescope buffers<cr>
 nnoremap br <cmd>Telescope oldfiles<Cr>
 nnoremap <Leader>r <cmd>Telescope registers<Cr>
-nnoremap se <cmd>Telescope file_browser<cr>
-nnoremap sf <cmd>Telescope find_files<cr>
-nnoremap sw <cmd>Telescope grep_string<Cr>
-nnoremap sl <cmd>Telescope current_buffer_fuzzy_find<Cr>
-nnoremap sL <cmd>Telescope live_grep<cr>
-nnoremap sH <cmd>Telescope help_tags<cr>
-nnoremap s/ <cmd>Telescope search_history<Cr>
-nnoremap s; <cmd>Telescope command_history<Cr>
-nnoremap s: <cmd>Telescope commands<Cr>
+nnoremap <Leader>e <cmd>Telescope file_browser<cr>
+nnoremap <Leader>E <cmd>Telescope find_files<cr>
+" nnoremap sw <cmd>Telescope grep_string<Cr>
+nnoremap <Leader>f <cmd>Telescope current_buffer_fuzzy_find<Cr>
+nnoremap <Leader>F <cmd>Telescope live_grep<cr>
+nnoremap <Leader>? <cmd>Telescope help_tags<cr>
+" nnoremap s/ <cmd>Telescope search_history<Cr>
+nnoremap <Leader>: <cmd>Telescope command_history<Cr>
+" nnoremap s: <cmd>Telescope commands<Cr>
 " nnoremap sm <cmd>Telescope man_pages<Cr>
 nnoremap sm <cmd>Telescope marks<Cr>
 nnoremap sq <cmd>Telescope quickfix<Cr>
 " nnoremap sL <cmd>Telescope loclist<Cr>
-nnoremap sO <cmd>Telescope vim_options<Cr>
 " nnoremap sa <cmd>Telescope autocommands<Cr>
-nnoremap sc <cmd>Telescope spell_suggest<CR>
-nnoremap st <cmd>Telescope current_buffer_tags<Cr>
+nnoremap s<Space>o <cmd>Telescope vim_options<Cr>
+nnoremap s<Space>s <cmd>Telescope spell_suggest<CR>
+nnoremap sT <cmd>Telescope current_buffer_tags<Cr>
 nnoremap sgc <cmd>Telescope git_commits<Cr>
 nnoremap sgb <cmd>Telescope git_bcommits<Cr>
 nnoremap sgB <cmd>Telescope git_branches<Cr>
 nnoremap sgs <cmd>Telescope git_status<Cr>
 nnoremap sgS <cmd>Telescope git_stash<Cr>
-" nnoremap <++> <cmd>Telescope <++><Cr>
 " nnoremap sr <cmd>Telescope lsp_references<Cr>
 
-"         fzf
-" command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', 'type {}']}, <bang>0)
-" nnoremap sf :Files<CR>
-" nnoremap sr :Rg<CR>
-" nnoremap sl :Lines<CR>
-" nnoremap sb :BLines<CR>
-" nnoremap sw :Windows<CR>
-" nnoremap sh :History<CR>
-" nnoremap sc :History:<CR>
-" nnoremap s/ :History/<CR>
 
 "   git gutter
 highlight GitGutterDelete guifg=#ffffff ctermfg=15
@@ -311,44 +313,16 @@ endfunc
 
 "      color scheme
 set t_Co=256
+let g:codedark_italics = 1
 colorscheme codedark
 hi statusline ctermfg=015 ctermbg=016 guifg=#ffffff guibg=#000000
 hi TabLine ctermfg=black ctermbg=grey cterm=bold guifg=black guibg=grey gui=bold
 hi TabLineSel cterm=bold gui=bold
 hi TabLineFill ctermbg=grey guibg=grey
 " hi TabLineSel ctermfg=black ctermbg=Yellow guifg=black guibg=Yellow
-" hi Search guibg=#444444 ctermbg=238
+hi Search guibg=#444444 ctermbg=238
 " hi normal guifg=gray94 ctermfg=254
 " hi link juliaFunctionCall Identifier
-
-" === Leaderf
-" let g:Lf_WindowPosition = 'popup'
-" nnoremap <Leader>fs :Leaderf --stayOpen line<CR>
-" nnoremap <Leader>fS :Leaderf --stayOpen rg<CR>
-
-" nnoremap <Leader>fl :Leaderf line<CR>
-" nnoremap <Leader>fL :Leaderf rg<CR>
-" nnoremap <Leader>fc :<C-u><C-R>=printf("Leaderf rg --current-buffer -e %s", expand("<cword>"))<CR>
-" nnoremap <Leader>fC :<C-u><C-R>=printf("Leaderf rg -e %s", expand("<cword>"))<CR>
-" vnoremap <Leader>fc :<C-u><C-R>=printf("Leaderf rg --current-buffer -e %s", leaderf#Rg#visual())<CR>
-" vnoremap <Leader>fC :<C-u><C-R>=printf("Leaderf rg -e %s", leaderf#Rg#visual())<CR>
-" nnoremap <Leader>ft :<C-u><C-R>=printf("Leaderf rg -t ")<CR>
-" nnoremap <Leader>fm :Leaderf mru<CR>
-" nnoremap <Leader>fb :Leaderf buffer<CR>
-" nnoremap <Leader>fj :Leaderf --next<CR>
-" nnoremap <Leader>fk :Leaderf --previous<CR>
-" nnoremap <Leader>fr :<C-u><C-R>=printf("Leaderf --recall ")<CR><CR>
-" nnoremap <Leader>fR :<C-u><C-R>=printf("Leaderf --recall ")<CR>
-" let g:Lf_ShortcutF = "<leader>ff"
-" let g:Lf_ShortcutB=''
-" let g:Lf_PreviewInPopup = 1
-" let g:Lf_WindowPosition = 'bottom'
-" let g:Lf_ShowHidden = 0
-" let g:Lf_PreviewResult = {'File': 1,'Buffer': 0,'Mru': 1,'Tag': 1,'BufTag': 1,'Function': 1,'Line': 1,'Rg': 1,'Gtags': 1}
-" let g:Lf_WildIgnore = {
-"             \ 'dir': ['$RECYCLE.BIN', 'System Volume Information'],
-"             \ 'file': ['*.exe', '*.o', '*.so', 'fort.[0-9]*', '*[0-9][0-9][0-9][0-9][0-9][0-9][0-9]*']}
-" let g:Lf_WindowHeight = 0.30
 
 
 "               Gitgutter
@@ -459,26 +433,27 @@ let g:vsnip_snippet_dir = stdpath('config') . '/vsnip'
     " require'lspconfig'.vimls.setup{}
 lua << EOF
     require("telescope").setup { defaults = {  mappings = { 
-        i = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous", ["<up>"] = "preview_scrolling_up", ["<down>"] = "preview_scrolling_down",}, 
-        n = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous", ["<up>"] = "preview_scrolling_up", ["<down>"] = "preview_scrolling_down",} } } }
+        i = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous", ["<up>"] = "preview_scrolling_up", ["<down>"] = "preview_scrolling_down", ["<C-/>"] = "which_key", ["<esc>"] = "close", ["jk"] = "close",
+            ["<Tab>"] = "move_selection_previous", ["<S-Tab>"] = "move_selection_next",  ["<C-l>"] = "add_selection",  ["<C-h>"] = "remove_selection",  ["<C-s>"] = "select_vertical", ["<C-v>"] = "select_horizontal",}, 
+        n = { ["<c-f>"] = "delete_buffer", ["<c-j>"] = "move_selection_next", ["<c-k>"] = "move_selection_previous", ["<up>"] = "preview_scrolling_up", ["<down>"] = "preview_scrolling_down", ["<C-/>"] = "which_key", ["<esc>"] = "close", ["jk"] = "close",
+            ["<Tab>"] = "move_selection_previous", ["<S-Tab>"] = "move_selection_next",  ["<C-l>"] = "add_selection",  ["<C-h>"] = "remove_selection", ["<C-s>"] = "select_vertical", ["<C-v>"] = "select_horizontal",},}}}
     local cmp = require('cmp')
     cmp.setup{
         snippet = { expand = function(args) vim.fn["vsnip#anonymous"](args.body) end },
         mapping = {
-            ['<CR>'] = cmp.mapping.confirm({ select = false }),
+            -- ['<CR>'] = cmp.mapping.confirm({ select = false }),
             ['<Tab>'] = cmp.mapping(function(fallback) if cmp.visible() then cmp.select_next_item() elseif vim.fn['vsnip#available']() == 1 then vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '') else fallback() end end, {"i", "s",}),
             ['<S-Tab>'] = cmp.mapping(function(fallback) if cmp.visible() then cmp.select_prev_item() else fallback() end end, {"i", "s",}),
-            ['jk'] = cmp.mapping(function(fallback) if vim.fn['vsnip#available']() == 1 then vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '') else fallback() end end, {"i", "s",}),
+            ['<CR>'] = cmp.mapping(function(fallback) if vim.fn['vsnip#available']() == 1 then vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '') else fallback() end end, {"i", "s",}),
         },
         sources = {
             { name = 'buffer', max_item_count = 20, keyword_length = 2},
             { name = 'vsnip', max_item_count = 20, keyword_length = 1},
-            { name = 'path', max_item_count = 20, option = { get_cwd = function() end} },
+            { name = 'path', max_item_count = 20 },
         },
     }
     cmp.setup.cmdline('/', { sources = {{ name = 'buffer', max_item_count = 20 }, }})
     cmp.setup.cmdline(':', { sources = {{ name = 'path', max_item_count = 20 }, { name = 'cmdline', max_item_count = 20 }, }})
-
 EOF
     " require'lspconfig'.julials.setup{}
     " require'lspconfig'.julials.setup{
