@@ -1,0 +1,23 @@
+{
+    "markdown hint": {
+        "prefix": [";"],
+        "body": [
+            ";1  ============================",
+            ";2  ----------------------------",
+            ";b  __bold__",
+            ";i  _italic_",
+            ";e  ___emphasize___",
+            ";c  `code`",
+            ";C  `CODE BLOCK`",
+            ";l  [link](http://name/link.com)",
+            ";p  ![picture link](folder/picture \"information\")",
+            ";x  - [ ] checkbox", 
+            ";k  \\$equation\\$",
+            ";K  \\$\\$ EQUATION \\$\\$",
+            ";f  \\frac{}{}",
+            ";\\  \\{}",
+            ";m  \\begin{pmatrix}  \\end{pmatrix}"
+        ],
+        "description": ["markdown hint"]
+    }
+}
